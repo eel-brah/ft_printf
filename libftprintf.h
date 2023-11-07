@@ -1,0 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/05 19:32:31 by eel-brah          #+#    #+#             */
+/*   Updated: 2023/11/06 21:28:21 by eel-brah         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef LIBFTPRINTF_H
+# define LIBFTPRINTF_H
+
+# include "libft/unc/libft.h"
+# include <unistd.h>
+# include <stdarg.h>
+# include <stdio.h>
+char	*ft_strchr(const char *s, int c);
+
+typedef struct s_flag
+{
+	int	nmb;
+	char	flag;
+	struct s_flag	*next;
+}	t_flag;
+
+
+int	ft_printf(const char *str, ...);
+int	ft_printf_formating(const char *str, int fd, va_list args, int printed, t_flag *list);
+int	ft_printf_formating_2(const char *str, int fd, va_list args, int printed, t_flag *list);
+int	ft_printf_iter(va_list args, const char *str, int fd);
+int ft_puthex(unsigned long p, int fd, char *hex, int *printed);
+int	ft_putnbr_2(unsigned int nb, int fd, int *printed);
+int	ft_putnbr_fd_2(int n, char u, int fd, int *printed);
+int	ft_putstr_fd_2(char *str, int fd);
+int	ft_printf_putchar(va_list args, int fd, int *printed);
+int	ft_printf_putstr(va_list args, int fd, int *printed);
+int	ft_printf_adrs(va_list args, int fd, int *printed);
+int	ft_printf_int(va_list args, int fd, int *printed, char c, t_flag *list);
+int	ft_printf_int_in_hex(va_list args, int fd, int *printed, char c);
+int	ft_putchar_fd_2(char c, int fd);
+
+#endif
