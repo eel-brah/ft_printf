@@ -19,17 +19,19 @@
 # include <stdio.h>
 char	*ft_strchr(const char *s, int c);
 
-typedef struct s_flag
+typedef struct s_format
 {
-	int	nmb;
-	char	flag;
-	struct s_flag	*next;
-}	t_flag;
-
+	char	flags; // 0-+ #
+	int		hyphen_nmb;
+	int		zero_nmb;
+	int		width; // the minimum number of bytes to print
+	int		precision; // .
+	char	specifier; // cspdiuxX%
+}	t_format;
 
 int	ft_printf(const char *str, ...);
-int	ft_printf_formating(const char *str, int fd, va_list args, int printed, t_flag *list);
-int	ft_printf_formating_2(const char *str, int fd, va_list args, int printed, t_flag *list);
+int	ft_printf_formating(int fd, va_list args, int printed, t_format format);
+int	ft_printf_formating_2(int fd, va_list args, int printed, t_format format);
 int	ft_printf_iter(va_list args, const char *str, int fd);
 int ft_puthex(unsigned long p, int fd, char *hex, int *printed);
 int	ft_putnbr_2(unsigned int nb, int fd, int *printed);
@@ -38,8 +40,8 @@ int	ft_putstr_fd_2(char *str, int fd);
 int	ft_printf_putchar(va_list args, int fd, int *printed);
 int	ft_printf_putstr(va_list args, int fd, int *printed);
 int	ft_printf_adrs(va_list args, int fd, int *printed);
-int	ft_printf_int(va_list args, int fd, int *printed, char c, t_flag *list);
-int	ft_printf_int_in_hex(va_list args, int fd, int *printed, char c);
+int	ft_printf_int(va_list args, int fd, int *printed, char c);
+int	ft_printf_int_in_hex(va_list args, int fd, int *printed, char c, t_format format);
 int	ft_putchar_fd_2(char c, int fd);
 
 #endif

@@ -6,170 +6,217 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:45:07 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/06 11:03:58 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/06 21:49:09 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_printf_formating_2(int fd, va_list args, int printed, t_format format)
+{
+	if (format.specifier == 'u')
+	{
+		if (ft_printf_int(args, fd, &printed, 1) == -1)
+			return (-1);
+	}
+	else if (format.specifier == 'x' || format.specifier == 'X')
+	{
+		if (ft_printf_int_in_hex(args, fd, &printed, format.specifier, format) == -1)
+			return (-1);
+	}
+	else if (format.specifier == '%')
+	{
+		if (ft_putchar_fd_2('%', fd) == -1)
+			return (-1);
+		printed++;
+	}
+	else if (format.specifier)
+	{
+		if (ft_putchar_fd_2(format.specifier, 1) == -1)
+			return (-1);
+		printed++;
+	}
+	return (printed);
+}
+
+int	ft_printf_formating(int fd, va_list args, int printed, t_format format)
+{
+	if (format.specifier == 'c')
+	{
+		if (ft_printf_putchar(args, fd, &printed) == -1)
+			return (-1);
+	}
+	else if (format.specifier == 's')
+	{
+		if (ft_printf_putstr(args, fd, &printed) == -1)
+			return (-1);
+	}
+	else if (format.specifier == 'p')
+	{
+		if (ft_printf_adrs(args, fd, &printed) == -1)
+			return (-1);
+	}
+	else if (format.specifier == 'd' || format.specifier == 'i')
+	{
+		if (ft_printf_int(args, fd, &printed, 0) == -1)
+			return (-1);
+	}
+	else
+		printed = ft_printf_formating_2(fd, args, printed, format);
+	return (printed);
+}
+
+char	*ft_strchr(const char *s, int c)
 {
 	char	*ptr;
 
 	ptr = (char *)s;
 	while (*ptr)
+	{
+		if (*ptr == (unsigned char)c)
+			return (ptr);
 		ptr++;
-	return (ptr - s);
-}
-
-void	ft_putchar_fd(char c, int fd)
-{
-	write (fd, &c, 1);
-}
-
-static void	ft_putnbr(unsigned int nb, int fd, int *printed)
-{
-	if (nb < 10)
-	{
-		ft_putchar_fd (nb + 48, fd);
-		(*printed)++;
-		return ;
 	}
-	ft_putnbr (nb / 10, fd, printed);
-	ft_putchar_fd (nb % 10 + 48, fd);
-	(*printed)++;
-}
-void	ft_putstr_fd(char *str, int fd)
-{
-	if (!str)
-		write(fd, "(null)", 6);
-	else if (*str)
-		write(fd, str, ft_strlen(str));
+	if (*ptr == (unsigned char)c)
+		return (ptr);
+	return (NULL);
 }
 
-void	ft_putnbr_fd(int n, char u, int fd, int *printed)
+char	*ft_get_format(const char *str)
 {
-	unsigned int	nb;
+	char	*ptr;
+	char	*flags;
+	int 	i;
 
-	nb = n;
-	if (!u && n < 0)
+	i = 0;
+	flags = "-0.# +123456789";
+	ptr = flags;
+	while (*(str + i) && ptr)
+		ptr = ft_strchr(flags, *(str + i++));
+	if (!ptr && i > 0)
 	{
-		nb *= -1;
-		ft_putchar_fd('-', fd);
-		(*printed)++;
+		ptr = ft_substr(str, 0, i);
+		if (!ptr)
+			return ((void *)-1);
+		return (ptr);
 	}
-	ft_putnbr(nb, fd, printed);
+	else 
+		return (NULL);
 }
 
-void ft_puthex(unsigned long p, int fd, char *hex, int *printed)
+t_format	ft_format_genarator(char *formats)
 {
-	if (p < 16)
+	char	*ptr;
+	char *format_set = "-+ #.";
+	int i;
+	t_format format;
+	char	*format_specifier;
+
+	format_specifier = "cspdiuxX%";
+	i = 0;
+	format.flags = 0;
+	format.specifier = formats[ft_strlen(formats)-1];
+	format.precision = 0;
+	format.width = 0;
+	format.hyphen_nmb = 0;
+	format.zero_nmb = 0;
+	if (*formats == '0')
 	{
-		ft_putchar_fd(hex[p], fd);
-		(*printed)++;
-		return ;
+		format.flags = 1;
+		format.zero_nmb = ft_atoi(formats+1);
 	}
-	ft_puthex(p / 16, fd, hex, printed);
-	ft_putchar_fd(hex[p % 16], fd);
-	(*printed)++;
-}
-
-int	ft_printf(const char *str, ...)
-{
-	int				index;
-	va_list			args;
-	int				fd;
-	char			c;
-	char			*s;
-	long int		p;
-	int				i;
-	unsigned int	u;
-	char			*hex;
-	char			*HEX;
-	int				printed;
-	
-
-	va_start(args, str);
-	fd = 1;
-	index = 0;
-	printed = 0;
-	hex = "0123456789abcdef";
-	HEX = "0123456789ABCDEF";
-	while (*(str + index))
+	while (*(format_set + i))
 	{
-		if (*(str + index) == '%')
+		ptr = ft_strrchr(formats, *(format_set + i++));
+		if (ptr)
 		{
-			// cspdiuxX%
-			index++;
-			if (*(str + index) == 'c')
+			if (*ptr == '-')
 			{
-				c = va_arg(args, int);
-				ft_putchar_fd(c, fd);
-				printed++;
+				format.flags = format.flags | 1 << 2;
+				format.hyphen_nmb = ft_atoi(ptr+1);
 			}
-			else if (*(str + index) == 's')
+			else if (*ptr == '+')
+				format.flags = format.flags | 1 << 3;
+			else if (*ptr == ' ')
+				format.flags = format.flags | 1 << 4;
+			else if (*ptr == '#')
+				format.flags = format.flags | 1 << 5;
+			else if (*ptr == '.')
+				format.precision = ft_atoi(ptr+1);
+		}
+	}	
+	return (format);
+}
+
+void	ft_print_formats_stuct(t_format format)
+{
+	if (format.flags & 1)
+		printf("%c: %i\n", '0', format.zero_nmb);
+	if (format.flags & 1 << 2)
+		printf("%c: %i\n", '-', format.hyphen_nmb);
+	if (format.flags & 1 << 3)
+		printf("%c\n", '+');
+	if (format.flags & 1 << 4)
+		printf("%c\n", ' ');
+	if (format.flags & 1 << 5)
+		printf("%c\n", '#');
+	if (format.precision)
+		printf("%i\n", format.precision);
+	if (format.specifier)
+		printf("%c\n", format.specifier);
+}
+
+int	ft_printf_iter(va_list args, const char *str, int fd)
+{
+	int	printed;
+	t_format format;
+
+	printed = 0;
+	char *formats;
+	while (*str)
+	{
+		if (*str == '%')
+		{
+			str++;
+			if (*str)
 			{
-				s = va_arg(args, char *);
-				ft_putstr_fd(s, fd);
-				if (s)
-					printed += ft_strlen(s);
-				else 
-					printed += 6;
-			}
-			else if (*(str + index) == 'p')
-			{
-				p = (unsigned long)va_arg(args, void *);
-				ft_putstr_fd("0x", fd);
-				printed += 2;
-				ft_puthex(p, fd, hex, &printed);
-			}
-			else if (*(str + index) == 'd' || *(str + index) == 'i')
-			{
-				i = va_arg(args, int);
-				ft_putnbr_fd(i, 0, fd, &printed);
-			}
-			else if (*(str + index) == 'u')
-			{
-				u = va_arg(args, unsigned int);
-				ft_putnbr_fd(u, 1, fd, &printed);
-			}
-			else if (*(str + index) == 'x' || *(str + index) == 'X')
-			{
-				i = va_arg(args, int);
-				if (*(str + index) == 'x')
-					ft_puthex((unsigned int)i, fd, hex, &printed);
-				else
-					ft_puthex((unsigned int)i, fd, HEX, &printed);
-			}
-			else if (*(str + index) == '%')
-			{
-				ft_putchar_fd('%', fd);
-				printed++;
-			}
-			else if (*(str + index))// handl this case
-			{
-				ft_putchar_fd(*(str + index), 1);
-				printed++;
+				formats = ft_get_format(str);
+				if (formats == (void*)-1)
+					return (-1);
+				else if (!formats)
+					return (0);
+				(void)formats;
+				format = ft_format_genarator(formats);
+				//ft_print_formats_stuct(format);
+				// str += ft_strlen(formats) - 1;
+				str += ft_strlen(formats) - 1;
+				printed = ft_printf_formating(fd, args, printed, format);
+				free(formats);
+				if (printed == -1)
+					return (-1);
 			}
 		}
 		else
 		{
-			ft_putchar_fd(*(str + index), 1);
+			if (ft_putchar_fd_2(*str, 1) == -1)
+				return (-1);
 			printed++;
 		}
-		if (*(str + index))
-			index++;
+		if (*str)
+			str++;
 	}
-	va_end(args);
-	return printed;
+	return (printed);
 }
-int main()
+
+int	ft_printf(const char *str, ...)
 {
-	//char c = '0';
-	//ft_printf("%s to %c-%d\nGo to %p\n----Loading %i%%\nTest: %u\nBegin at: %X\n", "Welcome", 'w', 69, &c, 98, 4196699669, 28045);
-	
-	printf("%i\n", ft_printf("\001\002\007\v\010\f\r\n"));
-	//for (int i = 0; i <= 100; i++)
-	printf("%i\n", printf("%", 'k'));
-	
+	va_list			args;
+	int				fd;
+	int				printed;
+
+	fd = 1;
+	va_start (args, str);
+	printed = ft_printf_iter(args, str, fd);
+	va_end(args);
+	return (printed);
 }

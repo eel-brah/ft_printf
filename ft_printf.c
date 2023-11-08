@@ -12,57 +12,57 @@
 
 #include "libftprintf.h"
 
-int	ft_printf_formating_2(const char *str, int fd, va_list args, int printed, t_flag *list)
+int	ft_printf_formating_2(int fd, va_list args, int printed, t_format format)
 {
-	if (*str == 'u')
+	if (format.specifier == 'u')
 	{
-		if (ft_printf_int(args, fd, &printed, 1, list) == -1)
+		if (ft_printf_int(args, fd, &printed, 1) == -1)
 			return (-1);
 	}
-	else if (*str == 'x' || *str == 'X')
+	else if (format.specifier == 'x' || format.specifier == 'X')
 	{
-		if (ft_printf_int_in_hex(args, fd, &printed, *str) == -1)
+		if (ft_printf_int_in_hex(args, fd, &printed, format.specifier, format) == -1)
 			return (-1);
 	}
-	else if (*str == '%')
+	else if (format.specifier == '%')
 	{
 		if (ft_putchar_fd_2('%', fd) == -1)
 			return (-1);
 		printed++;
 	}
-	else if (*str)
+	else if (format.specifier)
 	{
-		if (ft_putchar_fd_2(*str, 1) == -1)
+		if (ft_putchar_fd_2(format.specifier, 1) == -1)
 			return (-1);
 		printed++;
 	}
 	return (printed);
 }
 
-int	ft_printf_formating(const char *str, int fd, va_list args, int printed, t_flag *list)
+int	ft_printf_formating(int fd, va_list args, int printed, t_format format)
 {
-	if (*str == 'c')
+	if (format.specifier == 'c')
 	{
 		if (ft_printf_putchar(args, fd, &printed) == -1)
 			return (-1);
 	}
-	else if (*str == 's')
+	else if (format.specifier == 's')
 	{
 		if (ft_printf_putstr(args, fd, &printed) == -1)
 			return (-1);
 	}
-	else if (*str == 'p')
+	else if (format.specifier == 'p')
 	{
 		if (ft_printf_adrs(args, fd, &printed) == -1)
 			return (-1);
 	}
-	else if (*str == 'd' || *str == 'i')
+	else if (format.specifier == 'd' || format.specifier == 'i')
 	{
-		if (ft_printf_int(args, fd, &printed, 0, list) == -1)
+		if (ft_printf_int(args, fd, &printed, 0) == -1)
 			return (-1);
 	}
 	else
-		printed = ft_printf_formating_2(str, fd, args, printed, list);
+		printed = ft_printf_formating_2(fd, args, printed, format);
 	return (printed);
 }
 
@@ -82,7 +82,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_get_flags(const char *str)
+char	*ft_get_format(const char *str)
 {
 	char	*ptr;
 	char	*flags;
@@ -93,89 +93,108 @@ char	*ft_get_flags(const char *str)
 	ptr = flags;
 	while (*(str + i) && ptr)
 		ptr = ft_strchr(flags, *(str + i++));
-	if (!ptr && i > 1)
-		return (ft_substr(str, 0, --i));
+	if (!ptr && i > 0)
+	{
+		ptr = ft_substr(str, 0, i);
+		if (!ptr)
+			return ((void *)-1);
+		return (ptr);
+	}
 	else 
 		return (NULL);
 }
 
-t_flag	*ft_flag_new(char f, int nmb)
+t_format	ft_format_genarator(char *formats)
 {
-	t_flag	*new;
+	char	*ptr;
+	char *format_set = "-+ #.";
+	int i;
+	t_format format;
+	char	*format_specifier;
 
-	new = malloc(sizeof(t_flag));
-	if (!new)
-		return (NULL);
-	new->nmb = nmb;
-	new->flag = f;
-	new->next = NULL;
-	return (new);
-}
-
-void	ft_flag_add_back(t_flag **lst, t_flag *new)
-{
-	t_flag	*last;
-
-	if (!new || !lst)
-		return ;
-	last = *lst;
-	if (!last)
+	format_specifier = "cspdiuxX%";
+	i = 0;
+	format.flags = 0;
+	format.specifier = formats[ft_strlen(formats)-1];
+	format.precision = 0;
+	format.width = 0;
+	format.hyphen_nmb = 0;
+	format.zero_nmb = 0;
+	if (*formats == '0')
 	{
-		*lst = new;
-		return ;
+		format.flags = 1;
+		format.zero_nmb = ft_atoi(formats+1);
 	}
-	while (last->next)
-		last = last->next;
-	last->next = new;
+	while (*(format_set + i))
+	{
+		ptr = ft_strrchr(formats, *(format_set + i++));
+		if (ptr)
+		{
+			if (*ptr == '-')
+			{
+				format.flags = format.flags | 1 << 2;
+				format.hyphen_nmb = ft_atoi(ptr+1);
+			}
+			else if (*ptr == '+')
+				format.flags = format.flags | 1 << 3;
+			else if (*ptr == ' ')
+				format.flags = format.flags | 1 << 4;
+			else if (*ptr == '#')
+				format.flags = format.flags | 1 << 5;
+			else if (*ptr == '.')
+				format.precision = ft_atoi(ptr+1);
+		}
+	}	
+	return (format);
 }
 
+void	ft_print_formats_stuct(t_format format)
+{
+	if (format.flags & 1)
+		printf("%c: %i\n", '0', format.zero_nmb);
+	if (format.flags & 1 << 2)
+		printf("%c: %i\n", '-', format.hyphen_nmb);
+	if (format.flags & 1 << 3)
+		printf("%c\n", '+');
+	if (format.flags & 1 << 4)
+		printf("%c\n", ' ');
+	if (format.flags & 1 << 5)
+		printf("%c\n", '#');
+	if (format.precision)
+		printf("%i\n", format.precision);
+	if (format.specifier)
+		printf("%c\n", format.specifier);
+}
 
 int	ft_printf_iter(va_list args, const char *str, int fd)
 {
 	int	printed;
-	//char	*format;
-	char	*ptr;
-	int		i;
-	t_flag	*list = NULL;
-	t_flag	*new;
+	t_format format;
 
-	//format = "cspdiuxX%";
 	printed = 0;
-	ptr = NULL;
-	i = 0;
-	char *flags = "-.# +";
-	char *flag;
+	char *formats;
 	while (*str)
 	{
 		if (*str == '%')
 		{
 			str++;
-			flag = ft_get_flags(str);
-			if (flag)
+			if (*str)
 			{
-				if (*flag == '0')
-				{
-					list = ft_flag_new(*flag , ft_atoi(flag+1));
-				}
-				while (*(flags + i))
-				{
-					ptr = ft_strrchr(flag, *(flags + i++));
-					if (ptr)
-					{
-						new = ft_flag_new(*ptr , ft_atoi(ptr+1));
-						ft_flag_add_back(&list, new);
-					}
-				}
-				if (list)
-				{
-					str += ft_strlen(flag); 
-					printed = ft_printf_formating(str, fd, args, printed, list);
-					if (printed == -1)
-						return (-1);
-				}
+				formats = ft_get_format(str);
+				if (formats == (void*)-1)
+					return (-1);
+				else if (!formats)
+					return (0);
+				(void)formats;
+				format = ft_format_genarator(formats);
+				//ft_print_formats_stuct(format);
+				// str += ft_strlen(formats) - 1;
+				str += ft_strlen(formats) - 1;
+				printed = ft_printf_formating(fd, args, printed, format);
+				free(formats);
+				if (printed == -1)
+					return (-1);
 			}
-			// else 
-			// 	printf("nnn\n");
 		}
 		else
 		{

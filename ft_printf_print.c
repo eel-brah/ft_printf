@@ -133,52 +133,44 @@ int	ft_itoa_count(int nb)
 	return (len);
 }
 
-int	ft_printf_int(va_list args, int fd, int *printed, char c, t_flag *list)
+int	ft_printf_int(va_list args, int fd, int *printed, char c)
 {
 	int				i;
 	unsigned int	u;
-	int				print;
-	int				tmp;
+	//int				print;
 
-	print = 0;
+	//print = 0;
 	if (c == 0)// if va_arg retrun NULL if faild
 	{//-0.
 		i = va_arg(args, int);
-		tmp = ft_itoa_count(i);
-		while (list)
-		{
-			if (list->flag == '0')
-			{
-				tmp = list->nmb - tmp;
-				while (tmp--)
-				{
-					ft_putchar_fd_2('0', fd);
-					print++;
-				}
-			}
-			list = list->next;
-		}
-		if (ft_putnbr_fd_2(i, c, fd, &print) == -1)
+		if (ft_putnbr_fd_2(i, c, fd, printed) == -1)
 			return (-1);
 	}
 	else if (c == 1)
 	{
 		u = va_arg(args, unsigned int);
-		if (ft_putnbr_fd_2(u, 1, fd, &print) == -1)
+		if (ft_putnbr_fd_2(u, 1, fd, printed) == -1)
 			return (-1);
 	}
-	printed += print;
+	//printed += print;
 	return (1);
 }
 
-int	ft_printf_int_in_hex(va_list args, int fd, int *printed, char c)
+int	ft_printf_int_in_hex(va_list args, int fd, int *printed, char c, t_format format)
 {
 	char	*hex;
 	char	*hex_upper;
 	int		i;
 
+	(void)format;
 	hex = "0123456789abcdef";
 	hex_upper = "0123456789ABCDEF";
+	if (format.flags & 1 << 5)
+	{
+		if (ft_putstr_fd_2("0x", fd) == -1)
+			return (-1);
+		(*printed) += 2;
+	}
 	i = va_arg(args, int);
 	if (c == 'x')
 	{

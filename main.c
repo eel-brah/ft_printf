@@ -8,8 +8,9 @@ int main()
 	//printf("%i\n", ft_printf("%i", -55));
 	//for (int i = 0; i <= 100; i++)
 	//cspdiuxX%
-	//printf("%0i\n", printf("%.-055i", 545323));
-	printf("kjfdhjkdsh f dsklfj%.10+077ijsflkdjs", 77);
+	printf("%i\n", printf("%022### +x l", 55));
+	printf("%i\n", ft_printf("%022### +x l", 55));
+	//ft_printf("%%", 77);
 }
 //cspdiuxX%
 //# +
