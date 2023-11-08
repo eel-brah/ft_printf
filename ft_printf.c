@@ -16,7 +16,7 @@ int	ft_printf_formating_2(int fd, va_list args, int printed, t_format format)
 {
 	if (format.specifier == 'u')
 	{
-		if (ft_printf_int(args, fd, &printed, 1) == -1)
+		if (ft_printf_int(args, fd, &printed, 1, format) == -1)
 			return (-1);
 	}
 	else if (format.specifier == 'x' || format.specifier == 'X')
@@ -58,7 +58,7 @@ int	ft_printf_formating(int fd, va_list args, int printed, t_format format)
 	}
 	else if (format.specifier == 'd' || format.specifier == 'i')
 	{
-		if (ft_printf_int(args, fd, &printed, 0) == -1)
+		if (ft_printf_int(args, fd, &printed, 0, format) == -1)
 			return (-1);
 	}
 	else
@@ -115,6 +115,7 @@ t_format	ft_format_genarator(char *formats)
 	format_specifier = "cspdiuxX%";
 	i = 0;
 	format.flags = 0;
+	format.nmb = ft_atoi(formats); 
 	format.specifier = formats[ft_strlen(formats)-1];
 	format.precision = 0;
 	format.width = 0;
