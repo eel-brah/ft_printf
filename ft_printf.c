@@ -16,7 +16,7 @@ int	ft_printf_formating_2(int fd, va_list args, int printed, t_format format)
 {
 	if (format.specifier == 'u')
 	{
-		if (ft_printf_int(args, fd, &printed, 1, format) == -1)
+		if (ft_printf_int(args, &printed, 1, format) == -1)
 			return (-1);
 	}
 	else if (format.specifier == 'x' || format.specifier == 'X')
@@ -58,7 +58,7 @@ int	ft_printf_formating(int fd, va_list args, int printed, t_format format)
 	}
 	else if (format.specifier == 'd' || format.specifier == 'i')
 	{
-		if (ft_printf_int(args, fd, &printed, 0, format) == -1)
+		if (ft_printf_int(args, &printed, 0, format) == -1)
 			return (-1);
 	}
 	else
@@ -115,17 +115,20 @@ t_format	ft_format_genarator(char *formats)
 	format_specifier = "cspdiuxX%";
 	i = 0;
 	format.flags = 0;
-	format.nmb = ft_atoi(formats); 
+	format.nmb = 0; 
 	format.specifier = formats[ft_strlen(formats)-1];
 	format.precision = 0;
 	format.width = 0;
 	format.hyphen_nmb = 0;
 	format.zero_nmb = 0;
+	// fix how you git 0/zero_nmb and format.nmb 
 	if (*formats == '0')
 	{
 		format.flags = 1;
 		format.zero_nmb = ft_atoi(formats+1);
 	}
+	else
+		format.nmb = ft_atoi(formats);
 	while (*(format_set + i))
 	{
 		ptr = ft_strrchr(formats, *(format_set + i++));
@@ -143,7 +146,10 @@ t_format	ft_format_genarator(char *formats)
 			else if (*ptr == '#')
 				format.flags = format.flags | 1 << 5;
 			else if (*ptr == '.')
+			{
+				format.flags = format.flags | 1 << 6;
 				format.precision = ft_atoi(ptr+1);
+			}
 		}
 	}	
 	return (format);

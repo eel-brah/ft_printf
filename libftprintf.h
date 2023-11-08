@@ -41,7 +41,7 @@ int	ft_putstr_fd_2(char *str, int fd);
 int	ft_printf_putchar(va_list args, int fd, int *printed);
 int	ft_printf_putstr(va_list args, int fd, int *printed);
 int	ft_printf_adrs(va_list args, int fd, int *printed);
-int	ft_printf_int(va_list args, int fd, int *printed, char c, t_format format);
+int	ft_printf_int(va_list args, int *printed, char c, t_format format);
 int	ft_printf_int_in_hex(va_list args, int fd, int *printed, char c, t_format format);
 int	ft_putchar_fd_2(char c, int fd);
 

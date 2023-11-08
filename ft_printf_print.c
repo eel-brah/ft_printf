@@ -119,14 +119,14 @@ int	ft_printf_adrs(va_list args, int fd, int *printed)
 	return (1);
 }
 
-int	ft_itoa_count(int n)
+int	ft_itoa_count(int n, char c)
 {
 	unsigned int	nb;
 	int	len;
 
 	len = 0;
 	nb = n;
-	if (n < 0)
+	if (!c && n < 0)
 	{
 		nb *= -1;
 		len++;
@@ -139,60 +139,140 @@ int	ft_itoa_count(int n)
 	return (len);
 }
 
-int	ft_printf_int_minimum_width(int i, int *print, t_format format)
+int	ft_printf_int_minimum_width(int i, t_format format, char c)
 {
+	int print;
 	int	padding;
+	char p;
+	int precision;
 
 	padding = 0;
-	*print += ft_itoa_count(i);
-	if (format.nmb > *print)
+	precision = 0;
+	p = 0;
+	print = ft_itoa_count(i, c);
+	if (format.precision > print)
+		precision = format.precision - print;
+	print += precision; 
+	if (c == 0 && format.flags & 1 << 3 && i > 0)
 	{
-		padding = format.nmb - *print;
-		*print += padding;
-		while (padding)
+		p = '+';
+		print++;
+	}
+	else if (c == 0 && format.flags & 1 << 4 && i > 0)
+	{
+		p = ' ';
+		print++;
+	}
+	if ((format.flags & 1 << 2 && format.hyphen_nmb > print - precision))
+	{
+		padding = format.hyphen_nmb - print;
+		//printf("%i", padding);
+		//return 0;
+		if (padding > 0)
+			print += padding;
+		if (p && ft_putchar_fd_2(p, 1) == -1)
+			return (-1);
+		while (precision)
+		{
+			if (ft_putchar_fd_2('0', 1) == -1)
+				return (-1);
+			precision--;
+		}
+		if (ft_putnbr_fd_2(i, c, 1) == -1)
+			return (-1);
+		while (padding > 0)
 		{
 			if (ft_putchar_fd_2(' ', 1) == -1)
 				return (-1);
 			padding--;
 		}
 	}
-	return (0);
+	else if (format.flags & 1 << 6 && precision)
+	{
+		if (format.zero_nmb > print)
+		{
+			padding = format.zero_nmb - print;
+			print += padding;
+			while (padding)
+			{
+				if (ft_putchar_fd_2(' ', 1) == -1)
+					return (-1);
+				padding--;
+			}
+		}
+		if (p && ft_putchar_fd_2(p, 1) == -1)
+			return (-1);
+		while (precision)
+		{
+			if (ft_putchar_fd_2('0', 1) == -1)
+				return (-1);
+			precision--;
+		}
+		if (ft_putnbr_fd_2(i, c, 1) == -1)
+			return (-1);
+	}
+	else if (format.flags & 1 && format.zero_nmb > print)
+	{
+		padding = format.zero_nmb - print;
+		print += padding;
+		while (padding)
+		{
+			if (ft_putchar_fd_2('0', 1) == -1)
+				return (-1);
+			padding--;
+		}
+		if (p && ft_putchar_fd_2(p, 1) == -1)
+			return (-1);
+		if (ft_putnbr_fd_2(i, c, 1) == -1)
+			return (-1);
+	}
+	else if (format.nmb > print)
+	{
+		padding = format.nmb - print;
+		print += padding;
+		while (padding)
+		{
+			if (ft_putchar_fd_2(' ', 1) == -1)
+				return (-1);
+			padding--;
+		}
+		if (p && ft_putchar_fd_2(p, 1) == -1)
+			return (-1);
+		if (ft_putnbr_fd_2(i, c, 1) == -1)
+			return (-1);
+	}
+	else
+	{
+		if (p && ft_putchar_fd_2(p, 1) == -1)
+			return (-1);
+		if (ft_putnbr_fd_2(i, c, 1) == -1)
+			return (-1);
+	}
+	return (print);
 }
 
-int	ft_printf_int(va_list args, int fd, int *printed, char c, t_format format)
+int	ft_printf_int(va_list args, int *printed, char c, t_format format)
 {
 	int				i;
 	unsigned int	u;
 	int				print;
-	char			p;
 
 	print = 0;
-	p = 0;
 	if (c == 0)// if va_arg retrun NULL if faild
 	{//-0.
 		i = va_arg(args, int);
-		if (format.flags & 1 << 3 && i > 0)
-		{
-			p = '+';
-			print++;
-		}
-		else if (format.flags & 1 << 4 && i > 0)
-		{
-			p = ' ';
-			print++;
-		}
-		if (ft_printf_int_minimum_width(i, &print, format) == -1)
-			return (-1);
-		if (p && ft_putchar_fd_2(p, fd) == -1)
-			return (-1);
-		if (ft_putnbr_fd_2(i, c, fd) == -1)
+		print = ft_printf_int_minimum_width(i, format, c);
+		if (print == -1)
 			return (-1);
 	}
 	else if (c == 1)
 	{
 		u = va_arg(args, unsigned int);
-		if (ft_putnbr_fd_2(u, 1, fd) == -1)
+		print = ft_printf_int_minimum_width(u, format, c);
+		if (print == -1)
 			return (-1);
+		// if (ft_putnbr_fd_2(u, 1, 1) == -1)
+		// 	return (-1);
 	}
 	*printed += print;
 	return (1);
