@@ -43,7 +43,7 @@ int	ft_printf_formating(int fd, va_list args, int printed, t_format format)
 {
 	if (format.specifier == 'c')
 	{
-		if (ft_printf_putchar(args, fd, &printed) == -1)
+		if (ft_printf_putchar(args, &printed, format) == -1)
 			return (-1);
 	}
 	else if (format.specifier == 's')
@@ -53,7 +53,7 @@ int	ft_printf_formating(int fd, va_list args, int printed, t_format format)
 	}
 	else if (format.specifier == 'p')
 	{
-		if (ft_printf_adrs(args, fd, &printed) == -1)
+		if (ft_printf_adrs(args, &printed, format) == -1)
 			return (-1);
 	}
 	else if (format.specifier == 'd' || format.specifier == 'i')
