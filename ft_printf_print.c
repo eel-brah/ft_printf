@@ -125,6 +125,8 @@ int	ft_itoa_count(int n, char c)
 	int	len;
 
 	len = 0;
+	if (n == 0)
+		return (1);
 	nb = n;
 	if (!c && n < 0)
 	{
@@ -191,13 +193,16 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 	{
 		if (format.zero_nmb > print)
 		{
-			padding = format.zero_nmb - print;
-			print += padding;
-			while (padding)
+			if (!(format.flags & 1 << 2))
 			{
-				if (ft_putchar_fd_2(' ', 1) == -1)
-					return (-1);
-				padding--;
+				padding = format.zero_nmb - print;
+				print += padding;
+				while (padding)
+				{
+					if (ft_putchar_fd_2(' ', 1) == -1)
+						return (-1);
+					padding--;
+				}
 			}
 		}
 		if (p && ft_putchar_fd_2(p, 1) == -1)
@@ -210,19 +215,30 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 		}
 		if (ft_putnbr_fd_2(i, c, 1) == -1)
 			return (-1);
+		if (format.flags & 1 << 2 && format.hyphen_nmb == 0 && format.zero_nmb > print)
+		{
+			padding = format.zero_nmb - print;
+			print += padding;
+			while (padding)
+			{
+				if (ft_putchar_fd_2(' ', 1) == -1)
+					return (-1);
+				padding--;
+			}
+		}
 	}
 	else if (format.flags & 1 && format.zero_nmb > print)
 	{
 		padding = format.zero_nmb - print;
 		print += padding;
+		if (p && ft_putchar_fd_2(p, 1) == -1)
+			return (-1);
 		while (padding)
 		{
 			if (ft_putchar_fd_2('0', 1) == -1)
 				return (-1);
 			padding--;
 		}
-		if (p && ft_putchar_fd_2(p, 1) == -1)
-			return (-1);
 		if (ft_putnbr_fd_2(i, c, 1) == -1)
 			return (-1);
 	}

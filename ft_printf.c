@@ -104,16 +104,47 @@ char	*ft_get_format(const char *str)
 		return (NULL);
 }
 
+int	ft_to_skip(char *formats)
+{
+	char	*ptr;
+	int		skp;
+	char	*to_skep;
+
+	to_skep = "+ #";
+	ptr = to_skep;
+	skp = 0;
+	while (ptr)
+		ptr = ft_strchr(to_skep, *(formats + skp++));
+	if (skp)
+		skp--;
+	return (skp);
+
+}
+
+// int ft_to_skip_v2(char *ptr)
+// {
+// 	char	*nmb;
+// 	int		skp;
+
+// 	nmb = "123456789";
+// 	ptr = NULL;
+// 	skp = 0;
+// 	while (!ptr)
+// 		ptr = ft_strchr(nmb, *(ptr + skp++));
+// }
+
 t_format	ft_format_genarator(char *formats)
 {
 	char	*ptr;
-	char *format_set = "-+ #.";
-	int i;
-	t_format format;
-	char	*format_specifier;
+	char 		*format_set = "-+ #.";
+	int 		i;
+	t_format	format;
+	char		*format_specifier;
 
 	format_specifier = "cspdiuxX%";
 	i = 0;
+	int skp = 0;
+	int skp2 = 0;
 	format.flags = 0;
 	format.nmb = 0; 
 	format.specifier = formats[ft_strlen(formats)-1];
@@ -122,22 +153,26 @@ t_format	ft_format_genarator(char *formats)
 	format.hyphen_nmb = 0;
 	format.zero_nmb = 0;
 	// fix how you git 0/zero_nmb and format.nmb 
-	if (*formats == '0')
+	skp = ft_to_skip(formats);
+	if (*(formats + skp) == '0')
 	{
 		format.flags = 1;
-		format.zero_nmb = ft_atoi(formats+1);
+		skp2 = ft_to_skip(formats + skp + 1);
+		format.zero_nmb = ft_atoi(formats + skp + skp2 + 1);
 	}
 	else
-		format.nmb = ft_atoi(formats);
+		format.nmb = ft_atoi(formats + skp);
 	while (*(format_set + i))
 	{
 		ptr = ft_strrchr(formats, *(format_set + i++));
+		skp = 0;
 		if (ptr)
 		{
 			if (*ptr == '-')
 			{
 				format.flags = format.flags | 1 << 2;
-				format.hyphen_nmb = ft_atoi(ptr+1);
+				skp = ft_to_skip(ptr+1);
+				format.hyphen_nmb = ft_atoi(ptr+skp+1);
 			}
 			else if (*ptr == '+')
 				format.flags = format.flags | 1 << 3;
@@ -148,7 +183,8 @@ t_format	ft_format_genarator(char *formats)
 			else if (*ptr == '.')
 			{
 				format.flags = format.flags | 1 << 6;
-				format.precision = ft_atoi(ptr+1);
+				skp = ft_to_skip(ptr+1);
+				format.precision = ft_atoi(ptr+skp+1);
 			}
 		}
 	}	
