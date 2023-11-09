@@ -21,7 +21,7 @@ int	ft_printf_formating_2(int fd, va_list args, int printed, t_format format)
 	}
 	else if (format.specifier == 'x' || format.specifier == 'X')
 	{
-		if (ft_printf_int_in_hex(args, fd, &printed, format.specifier, format) == -1)
+		if (ft_printf_int_in_hex(args, &printed, format) == -1)
 			return (-1);
 	}
 	else if (format.specifier == '%')
@@ -43,12 +43,12 @@ int	ft_printf_formating(int fd, va_list args, int printed, t_format format)
 {
 	if (format.specifier == 'c')
 	{
-		if (ft_printf_putchar(args, &printed, format) == -1)
+		if (ft_printf_putchar(args, &printed, format, 0) == -1)
 			return (-1);
 	}
 	else if (format.specifier == 's')
 	{
-		if (ft_printf_putstr(args, fd, &printed) == -1)
+		if (ft_printf_putstr(args, &printed, format) == -1)
 			return (-1);
 	}
 	else if (format.specifier == 'p')

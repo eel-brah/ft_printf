@@ -82,31 +82,65 @@ int	ft_putstr_fd_2(char *str, int fd)
 	return (1);
 }
 
-int	ft_printf_putchar(va_list args, int *printed, t_format format)
+int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
 {
 	int	print;
 	int	padding;
+	char c;
+	char *str;
 
-	print = 1;
-	if (format.flags & 1 << 2)
+	if (w)
 	{
-		if ((format.hyphen_nmb == 1 ) || (format.hyphen_nmb == 0 && format.nmb == 0 && format.zero_nmb == 0))
+		str = va_arg(args, char *);
+		if (str)
+			print = ft_strlen(str);
+		else 
+			print = 6;
+	}
+	else
+	{
+		c = va_arg(args, int);
+		print = 1;
+	}
+	if (format.flags & 1 << 2) // lmochkil y9d yd5l w hiy d - sghr mn print
+	{
+		// if ((format.hyphen_nmb <= print ) && (format.hyphen_nmb < print && format.nmb < print && format.zero_nmb < print))
+		// if ((format.hyphen_nmb < print ) && (w == 1 || (format.hyphen_nmb < print && format.nmb < print && format.zero_nmb < print)))
+		// {
+		// 	if (w)
+		// 	{
+		// 		if (ft_putstr_fd_2(str, 1) == -1)
+		// 			return (-1);
+		// 	}
+		// 	else
+		// 	{
+		// 		if (ft_putchar_fd_2(c, 1) == -1)
+		// 			return (-1);
+		// 	}
+		// }
+		//else
+		//{
+		if (w)
 		{
-			if (ft_putchar_fd_2(va_arg(args, int), 1) == -1)
+			if (ft_putstr_fd_2(str, 1) == -1)
 				return (-1);
 		}
 		else
 		{
-			if (ft_putchar_fd_2(va_arg(args, int), 1) == -1)
+			if (ft_putchar_fd_2(c, 1) == -1)
 				return (-1);
-			padding = format.hyphen_nmb;
-			if (padding == 0)
-			{
+		}
+		padding = format.hyphen_nmb;
+		if (padding == 0)
+		{
+			if (format.nmb > format.zero_nmb)
 				padding = format.nmb;
-				if (padding == 0)
-					padding = format.zero_nmb;
-			}
-			padding = padding - print;
+			else
+				padding = format.zero_nmb;
+		}
+		if (padding > print)
+		{
+			padding -= print;
 			print += padding;
 			while(padding)
 			{
@@ -115,6 +149,7 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format)
 				padding--;
 			}
 		}
+		//}
 		
 	}
 	else if (format.flags & 1 && format.zero_nmb > print)
@@ -127,8 +162,16 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format)
 				return (-1);
 			padding--;
 		}
-		if (ft_putchar_fd_2(va_arg(args, int), 1) == -1)
-			return (-1);
+		if (w)
+		{
+			if (ft_putstr_fd_2(str, 1) == -1)
+				return (-1);
+		}
+		else
+		{
+			if (ft_putchar_fd_2(c, 1) == -1)
+				return (-1);
+		}
 	}
 	else if (format.nmb)
 	{
@@ -140,24 +183,39 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format)
 				return (-1);
 			padding--;
 		}
-		if (ft_putchar_fd_2(va_arg(args, int), 1) == -1)
-			return (-1);
+		if (w)
+		{
+			if (ft_putstr_fd_2(str, 1) == -1)
+				return (-1);
+		}
+		else
+		{
+			if (ft_putchar_fd_2(c, 1) == -1)
+				return (-1);
+		}
+	}
+	else
+	{
+		if (w)
+		{
+			if (ft_putstr_fd_2(str, 1) == -1)
+				return (-1);
+		}
+		else
+		{
+			if (ft_putchar_fd_2(c, 1) == -1)
+				return (-1);
+		}
 	}
 	*printed += print;
 	return (1);
 }
 
-int	ft_printf_putstr(va_list args, int fd, int *printed)
+int	ft_printf_putstr(va_list args, int *printed, t_format format)
 {
-	char	*s;
-
-	s = va_arg(args, char *);
-	if (ft_putstr_fd_2(s, fd) == -1)
+	int print = ft_printf_putchar(args, printed, format, 1);
+	if (print == -1)
 		return (-1);
-	if (s)
-		(*printed) += ft_strlen(s);
-	else 
-		(*printed) += 6;
 	return (1);
 }
 
@@ -484,6 +542,156 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 	return (print);
 }
 
+int	ft_printf_hex_minimum_width(unsigned int i, t_format format)
+{
+	int print;
+	int	padding;
+	char *p;
+	int precision;
+	char	*hex_lower;
+	char	*hex_upper;
+	hex_lower = "0123456789abcdef";
+	hex_upper = "0123456789ABCDEF";
+	char	*hex = hex_upper;
+	if (format.specifier == 'x')
+		hex = hex_lower;
+	int tmp = 0;
+
+	padding = 0;
+	precision = 0;
+	p = NULL;
+	print = ft_hex_len(i);
+	if (format.precision > print)
+		precision = format.precision - print;
+	print += precision; 
+	if (format.flags & 1 << 5)
+	{
+		p = "0x";
+		print += 2;
+	}
+	if ((format.flags & 1 << 2 && (precision == 0 || format.hyphen_nmb > print - precision)))
+	{
+		if ((format.hyphen_nmb == 1 ) || (format.hyphen_nmb == 0 && format.nmb == 0 && format.zero_nmb == 0))
+		{
+			if (p)
+				if (ft_putstr_fd_2(p, 1) == -1)
+					return (-1);
+			if (ft_puthex(i, 1, hex, &tmp) == -1)
+					return (-1);
+		}
+		else
+		{
+			padding = format.hyphen_nmb;
+			if (padding == 0)
+			{
+				padding = format.nmb;
+				if (padding == 0)
+					padding = format.zero_nmb;
+			}
+			padding = padding - print;
+			if (padding > 0)
+				print += padding;
+			if (p)
+				if (ft_putstr_fd_2(p, 1) == -1)
+					return (-1);
+			while (precision)
+			{
+				if (ft_putchar_fd_2('0', 1) == -1)
+					return (-1);
+				precision--;
+			}
+			if (ft_puthex(i, 1, hex, &tmp) == -1)
+					return (-1);
+			while (padding > 0)
+			{
+				if (ft_putchar_fd_2(' ', 1) == -1)
+					return (-1);
+				padding--;
+			}
+		}
+	}
+	else if (format.flags & 1 << 6 && precision)
+	{
+		if (format.zero_nmb > print)
+		{
+			if (!(format.flags & 1 << 2))
+			{
+				padding = format.zero_nmb - print;
+				print += padding;
+				while (padding)
+				{
+					if (ft_putchar_fd_2(' ', 1) == -1)
+						return (-1);
+					padding--;
+				}
+			}
+		}
+		if (p)
+			if (ft_putstr_fd_2(p, 1) == -1)
+				return (-1);
+		while (precision)
+		{
+			if (ft_putchar_fd_2('0', 1) == -1)
+				return (-1);
+			precision--;
+		}
+		if (ft_puthex(i, 1, hex, &tmp) == -1)
+			return (-1);
+		if (format.flags & 1 << 2 && format.hyphen_nmb == 0 && format.zero_nmb > print)
+		{
+			padding = format.zero_nmb - print;
+			print += padding;
+			while (padding)
+			{
+				if (ft_putchar_fd_2(' ', 1) == -1)
+					return (-1);
+				padding--;
+			}
+		}
+	}
+	else if (format.flags & 1 && format.zero_nmb > print)
+	{
+		padding = format.zero_nmb - print;
+		print += padding;
+		if (p)
+			if (ft_putstr_fd_2(p, 1) == -1)
+				return (-1);
+		while (padding)
+		{
+			if (ft_putchar_fd_2('0', 1) == -1)
+				return (-1);
+			padding--;
+		}
+		if (ft_puthex(i, 1, hex, &tmp) == -1)
+			return (-1);
+	}
+	else if (format.nmb > print)
+	{
+		padding = format.nmb - print;
+		print += padding;
+		while (padding)
+		{
+			if (ft_putchar_fd_2(' ', 1) == -1)
+				return (-1);
+			padding--;
+		}
+		if (p)
+			if (ft_putstr_fd_2(p, 1) == -1)
+				return (-1);
+		if (ft_puthex(i, 1, hex, &tmp) == -1)
+			return (-1);
+	}
+	else
+	{
+		if (p)
+			if (ft_putstr_fd_2(p, 1) == -1)
+				return (-1);
+		if (ft_puthex(i, 1, hex, &tmp) == -1)
+			return (-1);
+	}
+	return (print);
+}
+
 int	ft_printf_int(va_list args, int *printed, char c, t_format format)
 {
 	int				i;
@@ -511,31 +719,16 @@ int	ft_printf_int(va_list args, int *printed, char c, t_format format)
 	return (1);
 }
 
-int	ft_printf_int_in_hex(va_list args, int fd, int *printed, char c, t_format format)
+int	ft_printf_int_in_hex(va_list args, int *printed, t_format format)
 {
-	char	*hex;
-	char	*hex_upper;
-	int		i;
 
-	(void)format;
-	hex = "0123456789abcdef";
-	hex_upper = "0123456789ABCDEF";
-	if (format.flags & 1 << 5)
-	{
-		if (ft_putstr_fd_2("0x", fd) == -1)
-			return (-1);
-		(*printed) += 2;
-	}
+	int		i;
+	int		print;
+
 	i = va_arg(args, int);
-	if (c == 'x')
-	{
-		if (ft_puthex((unsigned int)i, fd, hex, printed) == -1)
-			return (-1);
-	}
-	else
-	{
-		if (ft_puthex((unsigned int)i, fd, hex_upper, printed) == -1)
-			return (-1);
-	}
+	print = ft_printf_hex_minimum_width(i, format);
+	if (print == -1)
+		return (-1);
+	*printed += print;
 	return (1);
 }
