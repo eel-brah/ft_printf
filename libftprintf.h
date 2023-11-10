@@ -31,14 +31,14 @@ typedef struct s_format
 }	t_format;
 
 int	ft_printf(const char *str, ...);
-int	ft_printf_formating(int fd, va_list args, int printed, t_format format);
-int	ft_printf_formating_2(int fd, va_list args, int printed, t_format format);
-int	ft_printf_iter(va_list args, const char *str, int fd);
+int	ft_printf_formating(va_list args, int printed, t_format format);
+int	ft_printf_formating_2(va_list args, int printed, t_format format);
+int	ft_printf_iter(va_list args, const char *str);
 int ft_puthex(unsigned long p, int fd, char *hex, int *printed);
 int	ft_putnbr_2(unsigned int nb, int fd);
 int	ft_putnbr_fd_2(int n, char u, int fd);
 int	ft_putstr_fd_2(char *str, int fd, int len);
-int	ft_printf_putchar(va_list args, int *printed, t_format format, int w);
+int	ft_printf_putchar(va_list args, int *printed, t_format format, int w, char no);
 int	ft_printf_putstr(va_list args, int *printed, t_format format);
 int	ft_printf_adrs(va_list args, int *printed, t_format format);
 int	ft_printf_int(va_list args, int *printed, char c, t_format format);

@@ -82,7 +82,7 @@ int	ft_putstr_fd_2(char *str, int fd, int len)
 	return (1);
 }
 
-int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
+int	ft_printf_putchar(va_list args, int *printed, t_format format, int w, char no)
 {
 	int	print;
 	int	padding;
@@ -91,7 +91,8 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
 	int	precision;
 
 	precision = 0;
-	if (w)
+	c = 0;
+	if (w == 1)
 	{
 		str = va_arg(args, char *);
 		if (str)
@@ -99,9 +100,14 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
 		else 
 			print = 6;
 	}
-	else
+	else if (w == 0)
 	{
 		c = va_arg(args, int);
+		print = 1;
+	}
+	else
+	{
+		c = no;
 		print = 1;
 	}
 	int tmp = 0;
@@ -128,7 +134,7 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
 		// }
 		//else
 		//{
-		if (w)
+		if (w == 1)
 		{
 			if (ft_putstr_fd_2(str, 1, print) == -1)
 				return (-1);
@@ -170,7 +176,7 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
 				return (-1);
 			padding--;
 		}
-		if (w)
+		if (w == 1)
 		{
 			if (ft_putstr_fd_2(str, 1, print) == -1)
 				return (-1);
@@ -182,7 +188,7 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
 		}
 		print = tmp;
 	}
-	else if (format.nmb)
+	else if (format.nmb && format.zero_nmb == 0 && format.nmb > print) // change
 	{
 		padding = format.nmb - print;
 		tmp = print + padding;
@@ -192,7 +198,7 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
 				return (-1);
 			padding--;
 		}
-		if (w)
+		if (w == 1)
 		{
 			if (ft_putstr_fd_2(str, 1, print) == -1)
 				return (-1);
@@ -206,7 +212,7 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
 	}
 	else
 	{
-		if (w)
+		if (w == 1)
 		{
 			if (ft_putstr_fd_2(str, 1, print) == -1)
 				return (-1);
@@ -223,7 +229,7 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
 
 int	ft_printf_putstr(va_list args, int *printed, t_format format)
 {
-	int print = ft_printf_putchar(args, printed, format, 1);
+	int print = ft_printf_putchar(args, printed, format, 1, 0);
 	if (print == -1)
 		return (-1);
 	return (1);
@@ -256,7 +262,7 @@ int	ft_int_len(int n, char c)
 	if (!c && n < 0)
 	{
 		nb *= -1;
-		len++;
+		//len++;
 	}
 	while (nb)
 	{
@@ -387,7 +393,7 @@ int	ft_printf_adrs_minimum_width(unsigned long p, t_format format, char *hex)
 		if (ft_puthex(p, 1, hex, &tmp) == -1)
 			return (-1);
 	}
-	else if (format.nmb > print)
+	else if (format.nmb > print && format.zero_nmb == 0 && format.nmb > print)
 	{
 		padding = format.nmb - print;
 		print += padding;
@@ -426,7 +432,7 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 	print = ft_int_len(i, c);
 	if (format.precision > print)
 		precision = format.precision - print;
-	print += precision; 
+	print += precision;
 	if (c == 0 && format.flags & 1 << 3 && i > 0)
 	{
 		p = '+';
@@ -437,6 +443,13 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 		p = ' ';
 		print++;
 	}
+	else if (c == 0 && i < 0)
+	{
+		p = '-';
+		print++;
+		i *= -1;
+	}
+
 	if ((format.flags & 1 << 2 && (precision == 0 || format.hyphen_nmb > print - precision)))
 	{
 		if ((format.hyphen_nmb == 1 ) || (format.hyphen_nmb == 0 && format.nmb == 0 && format.zero_nmb == 0))
@@ -476,11 +489,14 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 	}
 	else if (format.flags & 1 << 6 && precision)
 	{
-		if (format.zero_nmb > print)
+		if (format.zero_nmb > print || format.nmb > print)
 		{
 			if (!(format.flags & 1 << 2))
 			{
-				padding = format.zero_nmb - print;
+				if (format.zero_nmb > format.nmb)
+					padding = format.zero_nmb - print;
+				else
+					padding = format.nmb - print;
 				print += padding;
 				while (padding)
 				{
@@ -527,7 +543,7 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 		if (ft_putnbr_fd_2(i, c, 1) == -1)
 			return (-1);
 	}
-	else if (format.nmb > print)
+	else if (format.nmb > print && format.zero_nmb == 0 && format.nmb > print)
 	{
 		padding = format.nmb - print;
 		print += padding;
@@ -675,7 +691,7 @@ int	ft_printf_hex_minimum_width(unsigned int i, t_format format)
 		if (ft_puthex(i, 1, hex, &tmp) == -1)
 			return (-1);
 	}
-	else if (format.nmb > print)
+	else if (format.nmb > print && format.zero_nmb == 0 && format.nmb > print)
 	{
 		padding = format.nmb - print;
 		print += padding;
