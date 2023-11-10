@@ -67,7 +67,7 @@ int	ft_putnbr_fd_2(int n, char u, int fd)
 	return (1);
 }
 
-int	ft_putstr_fd_2(char *str, int fd)
+int	ft_putstr_fd_2(char *str, int fd, int len)
 {
 	if (!str)
 	{
@@ -76,7 +76,7 @@ int	ft_putstr_fd_2(char *str, int fd)
 	}
 	else if (*str)
 	{
-		if (write(fd, str, ft_strlen(str)) == -1)
+		if (write(fd, str, len) == -1)
 			return (-1);
 	}
 	return (1);
@@ -88,7 +88,9 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
 	int	padding;
 	char c;
 	char *str;
+	int	precision;
 
+	precision = 0;
 	if (w)
 	{
 		str = va_arg(args, char *);
@@ -101,6 +103,12 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
 	{
 		c = va_arg(args, int);
 		print = 1;
+	}
+	int tmp = 0;
+	if (w == 1 && format.flags & 1 << 6)
+	{
+		if (format.precision < print)
+			print = format.precision;
 	}
 	if (format.flags & 1 << 2) // lmochkil y9d yd5l w hiy d - sghr mn print
 	{
@@ -122,7 +130,7 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
 		//{
 		if (w)
 		{
-			if (ft_putstr_fd_2(str, 1) == -1)
+			if (ft_putstr_fd_2(str, 1, print) == -1)
 				return (-1);
 		}
 		else
@@ -155,7 +163,7 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
 	else if (format.flags & 1 && format.zero_nmb > print)
 	{
 		padding = format.zero_nmb - print;
-		print += padding;
+		tmp = print + padding;
 		while(padding)
 		{
 			if (ft_putchar_fd_2('0', 1) == -1)
@@ -164,7 +172,7 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
 		}
 		if (w)
 		{
-			if (ft_putstr_fd_2(str, 1) == -1)
+			if (ft_putstr_fd_2(str, 1, print) == -1)
 				return (-1);
 		}
 		else
@@ -172,11 +180,12 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
 			if (ft_putchar_fd_2(c, 1) == -1)
 				return (-1);
 		}
+		print = tmp;
 	}
 	else if (format.nmb)
 	{
 		padding = format.nmb - print;
-		print += padding;
+		tmp = print + padding;
 		while(padding)
 		{
 			if (ft_putchar_fd_2(' ', 1) == -1)
@@ -185,7 +194,7 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
 		}
 		if (w)
 		{
-			if (ft_putstr_fd_2(str, 1) == -1)
+			if (ft_putstr_fd_2(str, 1, print) == -1)
 				return (-1);
 		}
 		else
@@ -193,12 +202,13 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format, int w)
 			if (ft_putchar_fd_2(c, 1) == -1)
 				return (-1);
 		}
+		print = tmp;
 	}
 	else
 	{
 		if (w)
 		{
-			if (ft_putstr_fd_2(str, 1) == -1)
+			if (ft_putstr_fd_2(str, 1, print) == -1)
 				return (-1);
 		}
 		else
@@ -288,7 +298,7 @@ int	ft_printf_adrs_minimum_width(unsigned long p, t_format format, char *hex)
 	{
 		if ((format.hyphen_nmb == 1 ) || (format.hyphen_nmb == 0 && format.nmb == 0 && format.zero_nmb == 0))
 		{
-				if (ft_putstr_fd_2("0x", 1) == -1)
+				if (ft_putstr_fd_2("0x", 1, 2) == -1)
 					return (-1);
 				if (ft_puthex(p, 1, hex, &tmp) == -1)
 					return (-1);
@@ -305,7 +315,7 @@ int	ft_printf_adrs_minimum_width(unsigned long p, t_format format, char *hex)
 			padding = padding - print;
 			if (padding > 0)
 				print += padding;
-			if (ft_putstr_fd_2("0x", 1) == -1)
+			if (ft_putstr_fd_2("0x", 1, 2) == -1)
 				return (-1);
 			while (precision)
 			{
@@ -339,7 +349,7 @@ int	ft_printf_adrs_minimum_width(unsigned long p, t_format format, char *hex)
 				}
 			}
 		}
-		if (ft_putstr_fd_2("0x", 1) == -1)
+		if (ft_putstr_fd_2("0x", 1, 2) == -1)
 			return (-1);
 
 		while (precision)
@@ -366,7 +376,7 @@ int	ft_printf_adrs_minimum_width(unsigned long p, t_format format, char *hex)
 	{
 		padding = format.zero_nmb - print;
 		print += padding;
-		if (ft_putstr_fd_2("0x", 1) == -1)
+		if (ft_putstr_fd_2("0x", 1, 2) == -1)
 			return (-1);
 		while (padding)
 		{
@@ -387,14 +397,14 @@ int	ft_printf_adrs_minimum_width(unsigned long p, t_format format, char *hex)
 				return (-1);
 			padding--;
 		}
-		if (ft_putstr_fd_2("0x", 1) == -1)
+		if (ft_putstr_fd_2("0x", 1, 2) == -1)
 			return (-1);
 		if (ft_puthex(p, 1, hex, &tmp) == -1)
 			return (-1);
 	}
 	else
 	{
-		if (ft_putstr_fd_2("0x", 1) == -1)
+		if (ft_putstr_fd_2("0x", 1, 2) == -1)
 			return (-1);
 		if (ft_puthex(p, 1, hex, &tmp) == -1)
 			return (-1);
@@ -574,7 +584,7 @@ int	ft_printf_hex_minimum_width(unsigned int i, t_format format)
 		if ((format.hyphen_nmb == 1 ) || (format.hyphen_nmb == 0 && format.nmb == 0 && format.zero_nmb == 0))
 		{
 			if (p)
-				if (ft_putstr_fd_2(p, 1) == -1)
+				if (ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
 					return (-1);
 			if (ft_puthex(i, 1, hex, &tmp) == -1)
 					return (-1);
@@ -592,7 +602,7 @@ int	ft_printf_hex_minimum_width(unsigned int i, t_format format)
 			if (padding > 0)
 				print += padding;
 			if (p)
-				if (ft_putstr_fd_2(p, 1) == -1)
+				if (ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
 					return (-1);
 			while (precision)
 			{
@@ -627,7 +637,7 @@ int	ft_printf_hex_minimum_width(unsigned int i, t_format format)
 			}
 		}
 		if (p)
-			if (ft_putstr_fd_2(p, 1) == -1)
+			if (ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
 				return (-1);
 		while (precision)
 		{
@@ -654,7 +664,7 @@ int	ft_printf_hex_minimum_width(unsigned int i, t_format format)
 		padding = format.zero_nmb - print;
 		print += padding;
 		if (p)
-			if (ft_putstr_fd_2(p, 1) == -1)
+			if (ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
 				return (-1);
 		while (padding)
 		{
@@ -676,7 +686,7 @@ int	ft_printf_hex_minimum_width(unsigned int i, t_format format)
 			padding--;
 		}
 		if (p)
-			if (ft_putstr_fd_2(p, 1) == -1)
+			if (ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
 				return (-1);
 		if (ft_puthex(i, 1, hex, &tmp) == -1)
 			return (-1);
@@ -684,7 +694,7 @@ int	ft_printf_hex_minimum_width(unsigned int i, t_format format)
 	else
 	{
 		if (p)
-			if (ft_putstr_fd_2(p, 1) == -1)
+			if (ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
 				return (-1);
 		if (ft_puthex(i, 1, hex, &tmp) == -1)
 			return (-1);

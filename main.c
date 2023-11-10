@@ -32,7 +32,9 @@ int main()
 	printf("\n");
 	printf("%i\n", printf("%2-0c", c));
 	printf("%i\n", ft_printf("%2-0c", c));
-
+	printf("\n");
+	printf("%i\n", printf("%.0c", c));
+	printf("%i\n", ft_printf("%.0c", c));
 printf("\n");printf("\n");
 
 	printf("%i\n", printf("%010s", "hello"));
@@ -68,8 +70,8 @@ printf("\n");printf("\n");
 	printf("%i\n", printf("%099-9.9s", "hello"));
 	printf("%i\n", ft_printf("%099-9.9s", "hello"));
 			printf("\n");
-	printf("%i\n", printf("%099.9-15s", "hello"));
-	printf("%i\n", ft_printf("%099.9-15s", "hello"));
+	printf("%i\n", printf("%099.99-15s", "hello"));
+	printf("%i\n", ft_printf("%099.99-15s", "hello"));
 			printf("\n");//00
 	printf("%i\n", printf("%099.0-15s", "hello"));
 	printf("%i\n", ft_printf("%099.0-15s", "hello"));
@@ -82,6 +84,12 @@ printf("\n");printf("\n");
 	printf("\n");
 	printf("%i\n", printf("%010-1.3s", "hello"));
 	printf("%i\n", ft_printf("%010-1.3s", "hello"));
+		printf("\n");
+	printf("%i\n", printf("%010-15.3s", "hello"));
+	printf("%i\n", ft_printf("%010-15.3s", "hello"));
+	printf("\n");
+	printf("%i\n", printf("%010-15.5s", "hello"));
+	printf("%i\n", ft_printf("%010-15.5s", "hello"));
 	printf("\n");
 	printf("%i\n", printf("%010-2.3s", "hello"));
 	printf("%i\n", ft_printf("%010-2.3s", "hello"));
