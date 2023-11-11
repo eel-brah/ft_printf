@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 int	ft_putchar_fd_2(char c, int fd)
 {
@@ -59,8 +59,6 @@ int	ft_putnbr_fd_2(int n, char u, int fd)
 	if (!u && n < 0)
 	{
 		nb *= -1;
-		if (ft_putchar_fd_2('-', fd) == -1)
-			return (-1);
 	}
 	if (ft_putnbr_2(nb, fd) == -1)
 		return (-1);
@@ -447,7 +445,6 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 	{
 		p = '-';
 		print++;
-		i *= -1;
 	}
 
 	if ((format.flags & 1 << 2 && (precision == 0 || format.hyphen_nmb > print - precision)))

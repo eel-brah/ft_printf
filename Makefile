@@ -8,7 +8,7 @@ LIBFTDIR := ./libft
 LIBFT := $(LIBFTDIR)/libft.a
 
 SRC_DIRS := .
-INCLUDE := libftprintf.h
+INCLUDE := ft_printf.h
 
 SRC_FILES := ft_printf.c ft_printf_print.c
 OBJ_FILES := $(SRC_FILES:.c=.o)

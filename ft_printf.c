@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 // if return -1 end_arg
 int	ft_printf_formating_2(va_list args, int printed, t_format format)
 {
