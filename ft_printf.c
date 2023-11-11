@@ -189,11 +189,11 @@ t_format	ft_format_genarator(char *formats)
 	char 		*format_set = "-+ #.";
 	int 		i;
 	t_format	format;
-	char		*format_specifier;
+	//char		*format_specifier;
 	char *tmp;
 	int t;
 
-	format_specifier = "cspdiuxX%";
+	//format_specifier = "cspdiuxX%";
 	i = 0;
 	int skp = 0;
 	//int skp2 = 0;
@@ -330,10 +330,10 @@ int	ft_printf_iter(va_list args, const char *str)
 int	ft_printf(const char *str, ...)
 {
 	va_list			args;
-	int				fd;
+	//int				fd;
 	int				printed;
 
-	fd = 1;
+	//fd = 1;
 	va_start (args, str);
 	printed = ft_printf_iter(args, str);
 	va_end(args);

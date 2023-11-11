@@ -88,9 +88,9 @@ int	ft_printf_putchar(va_list args, int *printed, t_format format, int w, char n
 	int	padding;
 	char c;
 	char *str;
-	int	precision;
+	//int	precision;
 
-	precision = 0;
+	//precision = 0;
 	c = 0;
 	if (w == 1)
 	{
