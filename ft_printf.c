@@ -11,86 +11,52 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-// if return -1 end_arg
-int	ft_printf_formating_2(va_list args, int printed, t_format format)
-{
-	if (format.specifier == 'u')
-	{
-		if (ft_printf_int(args, &printed, 1, format) == -1)
-			return (-1);
-	}
-	else if (format.specifier == 'x' || format.specifier == 'X')
-	{
-		if (ft_printf_int_in_hex(args, &printed, format) == -1)
-			return (-1);
-	}
-	// else if (format.specifier == '%')
-	// {
-	// 	if (ft_printf_putchar(args, &printed, format, 2, format.specifier) == -1)
-	// 		return (-1);
-	// 	// if (ft_putchar_fd_2('%', fd) == -1)
-	// 	// 	return (-1);
-	// 	// printed++;
-	// }
-	else if (format.specifier)
-	{
-		if (ft_printf_putchar(args, &printed, format, 2, format.specifier) == -1)
-			return (-1);
-		// if (ft_putchar_fd_2(format.specifier, 1) == -1)
-		// 	return (-1);
-		// printed++;
-	}
-	return (printed);
-}
 
 int	ft_printf_formating(va_list args, int printed, t_format format)
 {
+	int	tmp;
+
+	tmp = 0;
 	if (format.specifier == 'c')
-	{
-		if (ft_printf_putchar(args, &printed, format, 0, 0) == -1)
-			return (-1);
-	}
+		tmp = ft_printf_putchar(args, format, 0, 0);
 	else if (format.specifier == 's')
-	{
-		if (ft_printf_putstr(args, &printed, format) == -1)
-			return (-1);
-	}
+		tmp = ft_printf_putstr(args, format);
 	else if (format.specifier == 'p')
-	{
-		if (ft_printf_adrs(args, &printed, format) == -1)
-			return (-1);
-	}
+		tmp = ft_printf_adrs(args, format);
 	else if (format.specifier == 'd' || format.specifier == 'i')
-	{
-		if (ft_printf_int(args, &printed, 0, format) == -1)
-			return (-1);
-	}
-	else
-		printed = ft_printf_formating_2(args, printed, format);
-	return (printed);
+		tmp = ft_printf_int(args, 0, format);
+	else if (format.specifier == 'u')
+		tmp = ft_printf_int(args, 1, format);
+	else if (format.specifier == 'x' || format.specifier == 'X')
+		tmp = ft_printf_int_in_hex(args, format);
+	else if (format.specifier)
+		tmp = ft_printf_putchar(args, format, 2, format.specifier);
+	if (tmp == -1)
+		return (-1);
+	return (printed + tmp);
 }
 
-char	*ft_strchr(const char *s, int c)
-{
-	char	*ptr;
+// char	*ft_strchr(const char *s, int c)
+// {
+// 	char	*ptr;
 
-	ptr = (char *)s;
-	while (*ptr)
-	{
-		if (*ptr == (unsigned char)c)
-			return (ptr);
-		ptr++;
-	}
-	if (*ptr == (unsigned char)c)
-		return (ptr);
-	return (NULL);
-}
+// 	ptr = (char *)s;
+// 	while (*ptr)
+// 	{
+// 		if (*ptr == (unsigned char)c)
+// 			return (ptr);
+// 		ptr++;
+// 	}
+// 	if (*ptr == (unsigned char)c)
+// 		return (ptr);
+// 	return (NULL);
+// }
 
 char	*ft_get_format(const char *str)
 {
 	char	*ptr;
 	char	*flags;
-	int 	i;
+	int		i;
 
 	i = 0;
 	flags = "-0.# +123456789";
@@ -140,129 +106,123 @@ int	ft_to_skip_digit(char *formats)
 	return (skp);
 }
 
-// int ft_to_skip_v2(char *ptr)
-// {
-// 	char	*nmb;
-// 	int		skp;
-
-// 	nmb = "123456789";
-// 	ptr = NULL;
-// 	skp = 0;
-// 	while (!ptr)
-// 		ptr = ft_strchr(nmb, *(ptr + skp++));
-// }
-
-void	ft_git_zero_flag_nmb(char *formats, t_format *format) // chek for sig fult here
+void	ft_get_zero_flag_nmb_helper(char *tmp, t_format *format)
 {
-	int skp = 0;
-	char *tmp;
+	int	skp;
+
+	skp = ft_to_skip(tmp);
+	if (ft_isdigit(*(tmp + skp))) // && *(tmp + skp) != 48 // why kont drt hadi
+		format->zero_nmb = ft_atoi(tmp + skp);
+	else if (format->zero_nmb == 0)
+		format->zero_nmb = format->nmb;
+	tmp += skp;
+	tmp += ft_to_skip_digit(tmp);
+	skp = ft_to_skip(tmp);
+	while (skp > 0)
+	{
+		if (ft_isdigit(*(tmp + skp)) && *(tmp + skp) != 48)
+			format->zero_nmb = ft_atoi(tmp + skp);
+		tmp += skp;
+		tmp += ft_to_skip_digit(tmp);
+		skp = ft_to_skip(tmp);
+	}
+}
+
+void	ft_get_zero_flag_nmb(char *formats, t_format *format)
+{
+	int		skp;
+	char	*tmp;
 
 	skp = ft_to_skip(formats);
 	if (*(formats + skp) == '0')
 	{
 		format->flags = format->flags | 1;
 		tmp = formats + skp + 1;
-		skp = ft_to_skip(tmp);
-		if (ft_isdigit(*(tmp + skp)) && *(tmp + skp) != 48)
-			format->zero_nmb = ft_atoi(tmp + skp);
-		else if (format->zero_nmb == 0)
-			format->zero_nmb = format->nmb;
-		tmp += skp;
-		tmp += ft_to_skip_digit(tmp);
-		skp = ft_to_skip(tmp);
-		while (skp > 0)
-		{
-			if (ft_isdigit(*(tmp + skp)) && *(tmp + skp) != 48)
-				format->zero_nmb = ft_atoi(tmp + skp);
-			tmp += skp;
-			tmp += ft_to_skip_digit(tmp);
-			skp = ft_to_skip(tmp);
-		}		
+		ft_get_zero_flag_nmb_helper (tmp, format);
 	}
 	else if (ft_isdigit(*(formats + skp)))
 		format->nmb = ft_atoi(formats + skp);
 }
 
+void	ft_format_hyphen(t_format *format, char *tmp)
+{
+	int	nmb;
+	int	skp;
+
+	nmb = 0;
+	format->flags = format->flags | 1 << 2;
+	nmb = ft_atoi(tmp);
+	if (nmb > format->hyphen_nmb)
+		format->hyphen_nmb = nmb;
+	tmp += ft_to_skip_digit(tmp);
+	skp = ft_to_skip(tmp);
+	while (skp > 0)
+	{
+		if (ft_isdigit(*(tmp + skp)) && *(tmp + skp) != 48)
+			format->hyphen_nmb = ft_atoi(tmp + skp);
+		tmp += skp;
+		tmp += ft_to_skip_digit(tmp);
+		skp = ft_to_skip(tmp);
+	}
+}
+
+void	ft_format_initialization(t_format *format, char *formats)
+{
+	format->flags = 0;
+	format->nmb = 0; 
+	format->specifier = formats[ft_strlen(formats)-1];
+	format->precision = 0;
+	format->width = 0;
+	format->hyphen_nmb = 0;
+	format->zero_nmb = 0;
+}
+
+void	ft_format_iter(char c, t_format *format, char *formats)
+{
+	int	skp;
+
+	if (c == '-')
+		ft_format_hyphen(format, formats + 1);
+	else if (c == '+')
+	{
+		format->flags = format->flags | 1 << 3;
+		ft_get_zero_flag_nmb(formats, format);
+	}
+	else if (c == ' ')
+	{
+		format->flags = format->flags | 1 << 4;
+		ft_get_zero_flag_nmb(formats, format);
+	}
+	else if (c == '#')
+	{
+		format->flags = format->flags | 1 << 5;
+		ft_get_zero_flag_nmb (formats, format);
+	}
+	else if (c == '.')
+	{
+		format->flags = format->flags | 1 << 6;
+		skp = ft_to_skip(formats + 1);
+		format->precision = ft_atoi(formats + skp + 1);
+	}
+}
+
 t_format	ft_format_genarator(char *formats)
 {
-	char	*ptr;
-	char 		*format_set = "-+ #.";
-	int 		i;
+	char		*ptr;
+	char		*format_set;
+	int			index;
 	t_format	format;
-	//char		*format_specifier;
-	char *tmp;
-	int t;
 
-	//format_specifier = "cspdiuxX%";
-	i = 0;
-	int skp = 0;
-	//int skp2 = 0;
-	format.flags = 0;
-	format.nmb = 0; 
-	format.specifier = formats[ft_strlen(formats)-1];
-	format.precision = 0;
-	format.width = 0;
-	format.hyphen_nmb = 0;
-	format.zero_nmb = 0;
-	ft_git_zero_flag_nmb(formats, &format);
-	//skp = ft_to_skip(formats);
-	// if (*(formats + skp) == '0')
-	// {
-	// 	format.flags = 1;
-	// 	skp2 = ft_to_skip(formats + skp + 1);
-	// 	format.zero_nmb = ft_atoi(formats + skp + skp2 + 1);
-	// }
-	// else
-	// 	format.nmb = ft_atoi(formats + skp);
-	t = 0;
-	while (*(formats + i))
+	index = 0;
+	format_set = "-+ #.";
+	ft_format_initialization(&format, formats);
+	ft_get_zero_flag_nmb(formats, &format);
+	while (*(formats + index))
 	{
-		ptr = ft_strchr(format_set, *(formats + i));
-		skp = 0;
+		ptr = ft_strchr(format_set, *(formats + index));
 		if (ptr)
-		{
-			if (*ptr == '-')
-			{
-				format.flags = format.flags | 1 << 2;
-				tmp = formats + i + 1;
-				t = ft_atoi(tmp);
-				if (t > format.hyphen_nmb)
-					format.hyphen_nmb = t;
-				tmp += ft_to_skip_digit(tmp);
-				skp = ft_to_skip(tmp);
-				//format.hyphen_nmb = ft_atoi(ptr+skp+1);
-				while (skp > 0)//-20+15++++30
-				{
-					if (ft_isdigit(*(tmp + skp)) && *(tmp + skp) != 48)
-						format.hyphen_nmb = ft_atoi(tmp + skp);
-					tmp += skp;
-					tmp += ft_to_skip_digit(tmp);
-					skp = ft_to_skip(tmp);
-				}
-			}
-			else if (*ptr == '+')
-			{
-				format.flags = format.flags | 1 << 3;
-				ft_git_zero_flag_nmb(formats + i, &format);
-			}
-			else if (*ptr == ' ')
-			{
-				format.flags = format.flags | 1 << 4;
-				ft_git_zero_flag_nmb(formats + i, &format);
-			}
-			else if (*ptr == '#')
-			{
-				format.flags = format.flags | 1 << 5;
-				ft_git_zero_flag_nmb(formats + i, &format);
-			}
-			else if (*ptr == '.')
-			{
-				format.flags = format.flags | 1 << 6;
-				skp = ft_to_skip(formats + i + 1);
-				format.precision = ft_atoi(formats + i+skp+1);
-			}
-		}
-		i++;
+			ft_format_iter(*ptr, &format, formats + index);
+		index++;
 	}
 	return (format);
 }
@@ -285,35 +245,41 @@ void	ft_print_formats_stuct(t_format format)
 		printf("%c\n", format.specifier);
 }
 
+int	ft_printf_format(const char **str, t_format *format,
+					va_list args, int printed)
+{
+	char		*formats;
+
+	if (!*str)
+		return (printed);
+	formats = ft_get_format(*str);
+	if (formats == (void *)-1)
+		return (-1);
+	else if (!formats)
+		return (0);
+	*format = ft_format_genarator(formats);
+	printed = ft_printf_formating(args, printed, *format);
+	*str += ft_strlen(formats) - 1;
+	free(formats);
+	return (printed);
+	if (printed == -1)
+		return (-1);
+}
+
 int	ft_printf_iter(va_list args, const char *str)
 {
-	int	printed;
-	t_format format;
+	int			printed;
+	t_format	format;
 
 	printed = 0;
-	char *formats;
 	while (*str)
 	{
 		if (*str == '%')
 		{
 			str++;
-			if (*str)
-			{
-				formats = ft_get_format(str);
-				if (formats == (void*)-1)
-					return (-1);
-				else if (!formats)
-					return (0);
-				(void)formats;
-				format = ft_format_genarator(formats);
-				//ft_print_formats_stuct(format);
-				// str += ft_strlen(formats) - 1;
-				str += ft_strlen(formats) - 1;
-				printed = ft_printf_formating(args, printed, format);
-				free(formats);
-				if (printed == -1)
-					return (-1);
-			}
+			printed = ft_printf_format(&str, &format, args, printed);// mand5lch printed hna
+			if (printed == -1)
+				return (-1);
 		}
 		else
 		{
@@ -330,10 +296,8 @@ int	ft_printf_iter(va_list args, const char *str)
 int	ft_printf(const char *str, ...)
 {
 	va_list			args;
-	//int				fd;
 	int				printed;
 
-	//fd = 1;
 	va_start (args, str);
 	printed = ft_printf_iter(args, str);
 	va_end(args);

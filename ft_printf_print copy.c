@@ -422,7 +422,7 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 	o = 0;
 	p = NULL;
 	if (c == 'h' || c == 'H')
-		print = ft_hex_len((unsigned int)i);
+		print = ft_hex_len(i);
 	else 
 		print = ft_int_len(i, c);
 	if (i == 0 && format.flags & 1 << 6 && format.precision == 0)
@@ -445,12 +445,9 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 		o = '-';
 		print++;
 	}
-	else if ((c == 'h' || c == 'H') && i != 0 && format.flags & 1 << 5)
+	else if ((c == 'h' || c == 'H') && format.flags & 1 << 5)
 	{
-		if (format.specifier == 'x')
-			p = "0x";
-		else
-			p = "0X";
+		p = "0x";
 		print += 2;
 	}
 
@@ -460,11 +457,10 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 		{
 			if (c == 'h' || c == 'H')
 			{
-				if (p && i != 0 && ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
+				if (p && ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
 					return (-1);
-				if (!(i == 0 && format.flags & 1 << 6 && format.precision == 0))
-					if (ft_puthex((unsigned int)i, 1, hex, &tmp) == -1)
-						return (-1);
+				if (ft_puthex(i, 1, hex, &tmp) == -1)
+					return (-1);
 			}
 			else 
 			{
@@ -472,7 +468,7 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 					return (-1);
 				if (!(i == 0 && format.flags & 1 << 6 && format.precision == 0))
 					if (ft_putnbr_fd_2(i, c, 1) == -1)
-						return (-1);
+					return (-1);
 			}
 		}
 		else
@@ -489,7 +485,7 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 				print += padding;
 			if (c == 'h' || c == 'H')
 			{
-				if (p && i != 0 && ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
+				if (p == ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
 					return (-1);
 			}
 			else
@@ -507,7 +503,7 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 			{
 				if (c == 'h' || c == 'H')
 				{
-					if (ft_puthex((unsigned int)i, 1, hex, &tmp) == -1)
+					if (ft_puthex(i, 1, hex, &tmp) == -1)
 						return (-1);
 				}
 				else
@@ -543,7 +539,7 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 				}
 			}
 		}
-		if ((c == 'h' || c == 'H') && p && i != 0 && ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
+		if ((c == 'h' || c == 'H') && p && ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
 			return (-1);
 		else if (o && ft_putchar_fd_2(o, 1) == -1)
 			return (-1);
@@ -557,7 +553,7 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 		{	
 			if (c == 'h' || c == 'H')
 			{
-				if (ft_puthex((unsigned int)i, 1, hex, &tmp) == -1)
+				if (ft_puthex(i, 1, hex, &tmp) == -1)
 					return (-1);
 			}
 			else 
@@ -584,7 +580,7 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 		print += padding;
 		if (c == 'h' || c == 'H')
 		{
-			if (p && i != 0 && ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
+			if (p && ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
 				return (-1);
 		}
 		else
@@ -602,7 +598,7 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 		{
 			if (c == 'h' || c == 'H')
 			{
-				if (ft_puthex((unsigned int)i, 1, hex, &tmp) == -1)
+				if (ft_puthex(i, 1, hex, &tmp) == -1)
 					return (-1);
 			}
 			else
@@ -624,11 +620,10 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 		}
 		if (c == 'h' || c == 'H')
 		{
-			if (p && i != 0 && ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
+			if (p && ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
 				return (-1);
-			if (!(i == 0 && format.flags & 1 << 6 && format.precision == 0))
-				if (ft_puthex((unsigned int)i, 1, hex, &tmp) == -1)
-					return (-1);
+			if (ft_puthex(i, 1, hex, &tmp) == -1)
+				return (-1);
 		}
 		else 
 		{
@@ -643,11 +638,10 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 	{
 		if (c == 'h' || c == 'H')
 		{
-			if (p && i != 0 && ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
+			if (p && ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
 				return (-1);
-			if (!(i == 0 && format.flags & 1 << 6 && format.precision == 0))
-				if (ft_puthex((unsigned int)i, 1, hex, &tmp) == -1)
-					return (-1);
+			if (ft_puthex(i, 1, hex, &tmp) == -1)
+				return (-1);
 		}
 		else 
 		{

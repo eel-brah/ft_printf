@@ -15,6 +15,8 @@ OBJ_FILES := $(SRC_FILES:.c=.o)
 
 NAME := libftprintf.a
 
+bonus: all
+
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ_FILES)

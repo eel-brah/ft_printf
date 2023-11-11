@@ -1,6 +1,5 @@
 #include "ft_printf.h"
-#include <limits.h>
-
+//#include <stdio.h>
 int main()
 {
 	char c = 'k';
@@ -423,73 +422,8 @@ int main()
 	printf("%Test: %i Return: %i\n", test, printf("  Or\t:\tThe Null string \"%-985.000s%159-0.000s\" is visible.\n", "hellos", "Ezz"));printf("\n");
 	printf("%Test: %i Return: %i\n", test, ft_printf("%090#x\n", -66));
 	printf("%Test: %i Return: %i\n", test, printf("%090#x\n", -66));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%099.9-14s\n", "-66"));
-	printf("%Test: %i Return: %i\n", test, printf("%099.9-15s\n", "-66"));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("% +k\n"));
-	printf("%Test: %i Return: %i\n", test, printf("% +k\n"));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%.s, %.s, %.s, %.s", (char *)NULL, "", "test", "joihwhhgsdkhksdgsdg\t\v\n\r\f\a25252\b6"));
-	printf("%Test: %i Return: %i\n", test, printf("%.s, %.s, %.s, %.s", (char *)NULL, "", "test", "joihwhhgsdkhksdgsdg\t\v\n\r\f\a25252\b6"));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%+d, %+d, %+d, %+d, %+d, %+d, %+d, %+d", 0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));
-	printf("%Test: %i Return: %i\n", test, printf("%+d, %+d, %+d, %+d, %+d, %+d, %+d, %+d", 0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%.0d", 0));
-	printf("%Test: %i Return: %i\n", test, printf("%.0d", 0));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%+.0d", 0));
-	printf("%Test: %i Return: %i\n", test, printf("%+.0d", 0));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%12.0d", 0));
-	printf("%Test: %i Return: %i\n", test, printf("%12.0d", 0));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%-33.0d", 0));
-	printf("%Test: %i Return: %i\n", test, printf("%-33.0d", 0));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%033.0d", 0));
-	printf("%Test: %i Return: %i\n", test, printf("%033.0d", 0));printf("\n");
-	printf("\n");printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%12d", 0));
-	printf("%Test: %i Return: %i\n", test, printf("%12d", 0));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%-33d", 0));
-	printf("%Test: %i Return: %i\n", test, printf("%-33d", 0));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%033d", 0));
-	printf("%Test: %i Return: %i\n", test, printf("%033d", 0));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%05.d, %05.d, %05.d, %05.d, %05.d, %05.d, %05.d, %05.d", 0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));
-	printf("%Test: %i Return: %i\n", test, printf("%05.d, %05.d, %05.d, %05.d, %05.d, %05.d, %05.d, %05.d", 0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%033.d", 5));
-	printf("%Test: %i Return: %i\n", test, printf("%033.d", 5));printf("\n");
-		printf("%Test: %i Return: %i\n", test, ft_printf("%33.d", 5));
-	printf("%Test: %i Return: %i\n", test, printf("%33.d", 5));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%033.2d", 5));
-	printf("%Test: %i Return: %i\n", test, printf("%033.2d", 5));printf("\n");
-		printf("%Test: %i Return: %i\n", test, ft_printf("%033.0d", 5));
-	printf("%Test: %i Return: %i\n", test, printf("%033.0d", 5));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%-d, %-d, %-d, %-d, %-d, %-d, %-d, %-d", 0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));
-	printf("%Test: %i Return: %i\n", test, printf("%-d, %-d, %-d, %-d, %-d, %-d, %-d, %-d", 0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%-.d, %-.d, %-.d, %-.d, %-.d, %-.d, %-.d, %-.d", 0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));
-	printf("%Test: %i Return: %i\n", test, printf("%-.d, %-.d, %-.d, %-.d, %-.d, %-.d, %-.d, %-.d", 0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%-.d, %-.d, %-.d, %-.d, %-.d, %-.d, %-.d, %-.d", 0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));
-	printf("%Test: %i Return: %i\n", test, printf("%-.d, %-.d, %-.d, %-.d, %-.d, %-.d, %-.d, %-.d", 0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%-.d, %-.d, %-.d, %-.d, %-.d, %-.d, %-.d, %-.d", 0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));
-	printf("%Test: %i Return: %i\n", test, printf("%-.d, %-.d, %-.d, %-.d, %-.d, %-.d, %-.d, %-.d", 0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%-1.d, %-1.d, %-1.d, %-1.d, %-1.d, %-1.d, %-1.d, %-1.d", 0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));
-	printf("%Test: %i Return: %i\n", test, printf("%-1.d, %-1.d, %-1.d, %-1.d, %-1.d, %-1.d, %-1.d, %-1.d", 0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%-+1d, %-+1d, %-+1d, %-+1d, %-+1d, %-+1d, %-+1d, %-+1d", 0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));
-	printf("%Test: %i Return: %i\n", test, printf("%-+1d, %-+1d, %-+1d, %-+1d, %-+1d, %-+1d, %-+1d, %-+1d", 0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));printf("\n");
-		printf("%Test: %i Return: %i\n", test, ft_printf("%.x, %.x, %.x, %.x, %.x, %.x, %.x, %.x, %.x, %.x", 0, 5, -1, -10, 0x1234, -1862, 0xABCDE, INT_MIN, INT_MAX, UINT_MAX));
-	printf("%Test: %i Return: %i\n", test, printf("%.x, %.x, %.x, %.x, %.x, %.x, %.x, %.x, %.x, %.x", 0, 5, -1, -10, 0x1234, -1862, 0xABCDE, INT_MIN, INT_MAX, UINT_MAX));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%033.x", 5));
-	printf("%Test: %i Return: %i\n", test, printf("%033.x", 5));printf("\n");
-		printf("%Test: %i Return: %i\n", test, ft_printf("%33.x", 5));
-	printf("%Test: %i Return: %i\n", test, printf("%33.x", 5));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%033.2x", 5));
-	printf("%Test: %i Return: %i\n", test, printf("%033.2x", 5));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%033.0x", 5));
-	printf("%Test: %i Return: %i\n", test, printf("%033.0x", 5));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%#x, %#x, %#x, %#x, %#x, %#x, %#x, %#x, %#x, %#x", 0, 5, -1, -10, 0x1234, -1862, 0xABCDE, INT_MIN, INT_MAX, UINT_MAX));
-	printf("%Test: %i Return: %i\n", test, printf("%#x, %#x, %#x, %#x, %#x, %#x, %#x, %#x, %#x, %#x", 0, 5, -1, -10, 0x1234, -1862, 0xABCDE, INT_MIN, INT_MAX, UINT_MAX));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%-.x, %-.x, %-.x, %-.x, %-.x, %-.x, %-.x, %-.x, %-.x, %-.x", 0, 5, -1, -10, 0x1234, -1862, 0xABCDE, INT_MIN, INT_MAX, UINT_MAX));
-	printf("%Test: %i Return: %i\n", test, printf("%-.x, %-.x, %-.x, %-.x, %-.x, %-.x, %-.x, %-.x, %-.x, %-.x", 0, 5, -1, -10, 0x1234, -1862, 0xABCDE, INT_MIN, INT_MAX, UINT_MAX));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%#X, %#X, %#X, %#X, %#X, %#X, %#X, %#X, %#X, %#X", 0, 5, -1, -10, 0x1234, -1862, 0xABCDE, INT_MIN, INT_MAX, UINT_MAX));
-	printf("%Test: %i Return: %i\n", test, printf("%#X, %#X, %#X, %#X, %#X, %#X, %#X, %#X, %#X, %#X", 0, 5, -1, -10, 0x1234, -1862, 0xABCDE, INT_MIN, INT_MAX, UINT_MAX));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%-9.53X%-59c%0110.72x%0019.4d" ,2443914393u,110,1020946345u,-1518145014));
-	printf("%Test: %i Return: %i\n", test, printf("%-9.53X%-59c%0110.72x%0019.4d" ,2443914393u,110,1020946345u,-1518145014));printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%-9.53X%-59c%0110.72x%" ,2443914393u,110,1020946345u,-1518145014));
-	printf("%Test: %i Return: %i\n", test, printf("%-9.53X%-59c%0110.72x%" ,2443914393u,110,1020946345u,-1518145014));printf("\n");
+	printf("%Test: %i Return: %i\n", test, ft_printf("%-90#xl\n", -66));
+	printf("%Test: %i Return: %i\n", test, printf("%-90#xl\n", -66));printf("\n");
 
 }
 //cspdiuxX%

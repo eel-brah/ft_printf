@@ -405,26 +405,13 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 {
 	int print;
 	int	padding;
-	char o;
-	char *p;
+	char p;
 	int precision;
-	char	*hex_lower;
-	char	*hex_upper;
-	hex_lower = "0123456789abcdef";
-	hex_upper = "0123456789ABCDEF";
-	char	*hex = hex_upper;
-	if (format.specifier == 'x')
-		hex = hex_lower;
-	int tmp = 0;
 
 	padding = 0;
 	precision = 0;
-	o = 0;
-	p = NULL;
-	if (c == 'h' || c == 'H')
-		print = ft_hex_len((unsigned int)i);
-	else 
-		print = ft_int_len(i, c);
+	p = 0;
+	print = ft_int_len(i, c);
 	if (i == 0 && format.flags & 1 << 6 && format.precision == 0)
 		print = 0;
 	if (format.precision > print)
@@ -432,48 +419,29 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 	print += precision;
 	if (c == 0 && format.flags & 1 << 3 && i >= 0)
 	{
-		o = '+';
+		p = '+';
 		print++;
 	}
 	else if (c == 0 && format.flags & 1 << 4 && i >= 0)
 	{
-		o = ' ';
+		p = ' ';
 		print++;
 	}
 	else if (c == 0 && i < 0)
 	{
-		o = '-';
+		p = '-';
 		print++;
-	}
-	else if ((c == 'h' || c == 'H') && i != 0 && format.flags & 1 << 5)
-	{
-		if (format.specifier == 'x')
-			p = "0x";
-		else
-			p = "0X";
-		print += 2;
 	}
 
 	if ((format.flags & 1 << 2 && (precision == 0 || format.hyphen_nmb > print - precision)))
 	{
 		if ((format.hyphen_nmb == 1 && i != 0) || (format.hyphen_nmb == 0 && format.nmb == 0 && format.zero_nmb == 0))
 		{
-			if (c == 'h' || c == 'H')
-			{
-				if (p && i != 0 && ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
+			if (p && ft_putchar_fd_2(p, 1) == -1)
+				return (-1);
+			if (!(i == 0 && format.flags & 1 << 6 && format.precision == 0))
+				if (ft_putnbr_fd_2(i, c, 1) == -1)
 					return (-1);
-				if (!(i == 0 && format.flags & 1 << 6 && format.precision == 0))
-					if (ft_puthex((unsigned int)i, 1, hex, &tmp) == -1)
-						return (-1);
-			}
-			else 
-			{
-				if (o && ft_putchar_fd_2(o, 1) == -1)
-					return (-1);
-				if (!(i == 0 && format.flags & 1 << 6 && format.precision == 0))
-					if (ft_putnbr_fd_2(i, c, 1) == -1)
-						return (-1);
-			}
 		}
 		else
 		{
@@ -487,16 +455,8 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 			padding = padding - print;
 			if (padding > 0)
 				print += padding;
-			if (c == 'h' || c == 'H')
-			{
-				if (p && i != 0 && ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
-					return (-1);
-			}
-			else
-			{
-				if (o && ft_putchar_fd_2(o, 1) == -1)
-					return (-1);
-			}
+			if (p && ft_putchar_fd_2(p, 1) == -1)
+				return (-1);
 			while (precision)
 			{
 				if (ft_putchar_fd_2('0', 1) == -1)
@@ -504,18 +464,8 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 				precision--;
 			}
 			if (!(i == 0 && format.flags & 1 << 6 && format.precision == 0))
-			{
-				if (c == 'h' || c == 'H')
-				{
-					if (ft_puthex((unsigned int)i, 1, hex, &tmp) == -1)
-						return (-1);
-				}
-				else
-				{
-					if (ft_putnbr_fd_2(i, c, 1) == -1)
-						return (-1);
-				}
-			}
+				if (ft_putnbr_fd_2(i, c, 1) == -1)
+					return (-1);
 			while (padding > 0)
 			{
 				if (ft_putchar_fd_2(' ', 1) == -1)
@@ -543,9 +493,7 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 				}
 			}
 		}
-		if ((c == 'h' || c == 'H') && p && i != 0 && ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
-			return (-1);
-		else if (o && ft_putchar_fd_2(o, 1) == -1)
+		if (p && ft_putchar_fd_2(p, 1) == -1)
 			return (-1);
 		while (precision)
 		{
@@ -554,18 +502,8 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 			precision--;
 		}
 		if (!(i == 0 && format.flags & 1 << 6 && format.precision == 0))
-		{	
-			if (c == 'h' || c == 'H')
-			{
-				if (ft_puthex((unsigned int)i, 1, hex, &tmp) == -1)
-					return (-1);
-			}
-			else 
-			{
-				if (ft_putnbr_fd_2(i, c, 1) == -1)
-					return (-1);
-			}
-		}
+			if (ft_putnbr_fd_2(i, c, 1) == -1)
+				return (-1);
 		if (format.flags & 1 << 2 && format.hyphen_nmb == 0 && format.zero_nmb > print)
 		{
 			padding = format.zero_nmb - print;
@@ -582,16 +520,8 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 	{
 		padding = format.zero_nmb - print;
 		print += padding;
-		if (c == 'h' || c == 'H')
-		{
-			if (p && i != 0 && ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
-				return (-1);
-		}
-		else
-		{
-			if (o && ft_putchar_fd_2(o, 1) == -1)
-				return (-1);
-		}
+		if (p && ft_putchar_fd_2(p, 1) == -1)
+			return (-1);
 		while (padding)
 		{
 			if (ft_putchar_fd_2('0', 1) == -1)
@@ -599,18 +529,8 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 			padding--;
 		}
 		if (!(i == 0 && format.flags & 1 << 6 && format.precision == 0))
-		{
-			if (c == 'h' || c == 'H')
-			{
-				if (ft_puthex((unsigned int)i, 1, hex, &tmp) == -1)
-					return (-1);
-			}
-			else
-			{
-				if (ft_putnbr_fd_2(i, c, 1) == -1)
-					return (-1);
-			}
-		}
+			if (ft_putnbr_fd_2(i, c, 1) == -1)
+				return (-1);
 	}
 	else if (format.nmb > print && format.zero_nmb == 0 && format.nmb > print)
 	{
@@ -622,41 +542,19 @@ int	ft_printf_int_minimum_width(int i, t_format format, char c)
 				return (-1);
 			padding--;
 		}
-		if (c == 'h' || c == 'H')
-		{
-			if (p && i != 0 && ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
+		if (p && ft_putchar_fd_2(p, 1) == -1)
+			return (-1);
+		if (!(i == 0 && format.flags & 1 << 6 && format.precision == 0))
+			if (ft_putnbr_fd_2(i, c, 1) == -1)
 				return (-1);
-			if (!(i == 0 && format.flags & 1 << 6 && format.precision == 0))
-				if (ft_puthex((unsigned int)i, 1, hex, &tmp) == -1)
-					return (-1);
-		}
-		else 
-		{
-			if (o && ft_putchar_fd_2(o, 1) == -1)
-				return (-1);
-			if (!(i == 0 && format.flags & 1 << 6 && format.precision == 0))
-				if (ft_putnbr_fd_2(i, c, 1) == -1)
-					return (-1);
-		}
 	}
 	else
 	{
-		if (c == 'h' || c == 'H')
-		{
-			if (p && i != 0 && ft_putstr_fd_2(p, 1, ft_strlen(p)) == -1)
+		if (p && ft_putchar_fd_2(p, 1) == -1)
+			return (-1);
+		if (!(i == 0 && format.flags & 1 << 6 && format.precision == 0))
+			if (ft_putnbr_fd_2(i, c, 1) == -1)
 				return (-1);
-			if (!(i == 0 && format.flags & 1 << 6 && format.precision == 0))
-				if (ft_puthex((unsigned int)i, 1, hex, &tmp) == -1)
-					return (-1);
-		}
-		else 
-		{
-			if (o && ft_putchar_fd_2(o, 1) == -1)
-				return (-1);
-			if (!(i == 0 && format.flags & 1 << 6 && format.precision == 0))
-				if (ft_putnbr_fd_2(i, c, 1) == -1)
-					return (-1);
-		}
 	}
 	return (print);
 }
@@ -844,8 +742,7 @@ int	ft_printf_int_in_hex(va_list args, t_format format)
 	int		print;
 
 	i = va_arg(args, int);
-	print = ft_printf_int_minimum_width(i, format, 'h');
-	//print = ft_printf_hex_minimum_width(i, format);
+	print = ft_printf_hex_minimum_width(i, format);
 	if (print == -1)
 		return (-1);
 	return (print);
