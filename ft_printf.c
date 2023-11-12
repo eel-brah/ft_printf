@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int	ft_printf_formating(va_list args, int printed, t_format format)
+int	ft_printf_formating(va_list args, t_format format)
 {
 	int	tmp;
 
@@ -31,9 +31,7 @@ int	ft_printf_formating(va_list args, int printed, t_format format)
 		tmp = ft_printf_int_in_hex(args, format);
 	else if (format.specifier)
 		tmp = ft_printf_putchar(args, format, 2, format.specifier);
-	if (tmp == -1)
-		return (-1);
-	return (printed + tmp);
+	return (tmp);
 }
 
 // char	*ft_strchr(const char *s, int c)
@@ -245,31 +243,33 @@ void	ft_print_formats_stuct(t_format format)
 		printf("%c\n", format.specifier);
 }
 
-int	ft_printf_format(const char **str, t_format *format,
-					va_list args, int printed)
+int	ft_printf_format(const char **str, t_format *format, va_list args)
 {
-	char		*formats;
+	char	*formats;
+	int		printed;
 
+	printed = 0;
 	if (!*str)
-		return (printed);
+		return (0);
 	formats = ft_get_format(*str);
 	if (formats == (void *)-1)
 		return (-1);
 	else if (!formats)
 		return (0);
 	*format = ft_format_genarator(formats);
-	printed = ft_printf_formating(args, printed, *format);
+	printed = ft_printf_formating(args, *format);
 	*str += ft_strlen(formats) - 1;
 	free(formats);
-	return (printed);
 	if (printed == -1)
 		return (-1);
+	return (printed);
 }
 
 int	ft_printf_iter(va_list args, const char *str)
 {
 	int			printed;
 	t_format	format;
+	int			tmp;
 
 	printed = 0;
 	while (*str)
@@ -277,9 +277,10 @@ int	ft_printf_iter(va_list args, const char *str)
 		if (*str == '%')
 		{
 			str++;
-			printed = ft_printf_format(&str, &format, args, printed);// mand5lch printed hna
-			if (printed == -1)
+			tmp = ft_printf_format(&str, &format, args);// mand5lch printed hna
+			if (tmp == -1)
 				return (-1);
+			printed += tmp;
 		}
 		else
 		{

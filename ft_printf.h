@@ -46,7 +46,7 @@ int	ft_printf(const char *str, ...);
 // int	ft_putchar_fd_2(char c, int fd);
 // int	ft_printf_adrs_minimum_width(unsigned long p, t_format format, char *hex);
 // int	ft_printf_hex_minimum_width(unsigned int i, t_format format);
-int	ft_printf_formating(va_list args, int printed, t_format format);
+int	ft_printf_formating(va_list args, t_format format);
 char	*ft_get_format(const char *str);
 int	ft_to_skip(char *formats);
 int	ft_to_skip_digit(char *formats);
@@ -57,8 +57,7 @@ void	ft_format_initialization(t_format *format, char *formats);
 void	ft_format_iter(char c, t_format *format, char *formats);
 t_format	ft_format_genarator(char *formats);
 void	ft_print_formats_stuct(t_format format);
-int	ft_printf_format(const char **str, t_format *format,
-					va_list args, int printed);
+int	ft_printf_format(const char **str, t_format *format, va_list args);
 int	ft_printf_iter(va_list args, const char *str);
 
 

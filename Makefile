@@ -15,7 +15,7 @@ OBJ_FILES := $(SRC_FILES:.c=.o)
 
 NAME := libftprintf.a
 
-bonus: all
+//bonus: all
 
 all: $(NAME)
 

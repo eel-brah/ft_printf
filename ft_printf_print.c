@@ -17,8 +17,6 @@ int	ft_putchar_fd_2(char c, int fd)
 	return (write (fd, &c, 1));
 }
 
-// int	ft_
-
 int	ft_puthex(unsigned long p, int fd, char *hex, int *printed)
 {
 	if (p < 16)

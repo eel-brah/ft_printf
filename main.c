@@ -490,6 +490,9 @@ int main()
 	printf("%Test: %i Return: %i\n", test, printf("%-9.53X%-59c%0110.72x%0019.4d" ,2443914393u,110,1020946345u,-1518145014));printf("\n");
 	printf("%Test: %i Return: %i\n", test, ft_printf("%-9.53X%-59c%0110.72x%" ,2443914393u,110,1020946345u,-1518145014));
 	printf("%Test: %i Return: %i\n", test, printf("%-9.53X%-59c%0110.72x%" ,2443914393u,110,1020946345u,-1518145014));printf("\n");
-
+	
+	printf("\n");printf("\n");
+	printf("%Test: %i Return: %i\n", test, ft_printf("%43lc", (char)176));
+	printf("%Test: %i Return: %i\n", test, ft_printf("%43lc", (char)176));printf("\n");
 }
 //cspdiuxX%
