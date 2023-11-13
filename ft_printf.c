@@ -327,7 +327,7 @@ int	ft_printf_iter(va_list args, const char *str)
 		}
 		else
 		{
-			if (ft_putchar_fd_2(*str, 1) == -1)
+			if (ft_putchar_fd_r(*str, 1) == -1)
 				return (-1);
 			printed++;
 		}
