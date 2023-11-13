@@ -490,9 +490,35 @@ int main()
 	printf("%Test: %i Return: %i\n", test, printf("%-9.53X%-59c%0110.72x%0019.4d" ,2443914393u,110,1020946345u,-1518145014));printf("\n");
 	printf("%Test: %i Return: %i\n", test, ft_printf("%-9.53X%-59c%0110.72x%" ,2443914393u,110,1020946345u,-1518145014));
 	printf("%Test: %i Return: %i\n", test, printf("%-9.53X%-59c%0110.72x%" ,2443914393u,110,1020946345u,-1518145014));printf("\n");
-	
-	printf("\n");printf("\n");
-	printf("%Test: %i Return: %i\n", test, ft_printf("%43lc", (char)176));
-	printf("%Test: %i Return: %i\n", test, ft_printf("%43lc", (char)176));printf("\n");
+
+	//unsigned char l = 340;
+	ft_printf("\0550\n");
+	printf("\0550\n");
+	printf("%Test: %i Return: %i\n", test, ft_printf("%%k%"));
+	printf("%Test: %i Return: %i\n", test, printf("%%k%"));printf("\n");
+	printf("%Test: %i Return: %i\n", test, ft_printf("%%%%%%%%%%k%"));
+	printf("%Test: %i Return: %i\n", test, printf("%%%%%%%%%%k%"));printf("\n");
+	printf("%Test: %i Return: %i\n", test, ft_printf("%080 s",NULL));
+	printf("%Test: %i Return: %i\n", test, printf("%080 s",NULL));printf("\n");
+	printf("%Test: %i Return: %i\n", test, ft_printf("%080 .5d",NULL));
+	printf("%Test: %i Return: %i\n", test, printf("%080 .5d",NULL));printf("\n");
+	printf("%Test: %i Return: %i\n", test, ft_printf("%080 .5-s",NULL));
+	printf("%Test: %i Return: %i\n", test, printf("%080 .5-s",NULL));printf("\n");
+	printf("%Test: %i Return: %i\n", test, ft_printf("%99.22p", &c));
+	printf("%Test: %i Return: %i\n", test, printf("%99.22p", &c));printf("\n");
+	printf("%Test: %i Return: %i\n", test, ft_printf("%099.22p", &c));
+	printf("%Test: %i Return: %i\n", test, printf("%099.22p", &c));printf("\n");
+	printf("%Test: %i Return: %i\n", test, ft_printf("%-33.p", NULL));
+	printf("%Test: %i Return: %i\n", test, printf("%-33.p", NULL));printf("\n");
+	printf("%Test: %i Return: %i\n", test, ft_printf("%033.p", NULL));
+	printf("%Test: %i Return: %i\n", test, printf("%033.p", NULL));printf("\n");
+	printf("%Test: %i Return: %i\n", test, ft_printf("%99.22x", "55"));
+	printf("%Test: %i Return: %i\n", test, printf("%99.22x", "55"));printf("\n");
+	printf("%Test: %i Return: %i\n", test, ft_printf("%099.22x", "55"));
+	printf("%Test: %i Return: %i\n", test, printf("%099.22x", "55"));printf("\n");
+	printf("%Test: %i Return: %i\n", test, ft_printf("%-33.x", 0));
+	printf("%Test: %i Return: %i\n", test, printf("%-33.x", 0));printf("\n");
+	printf("%Test: %i Return: %i\n", test, ft_printf("%033.x", 0));
+	printf("%Test: %i Return: %i\n", test, printf("%033.x", 0));printf("\n");
 }
 //cspdiuxX%

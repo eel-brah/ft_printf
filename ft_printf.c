@@ -18,19 +18,19 @@ int	ft_printf_formating(va_list args, t_format format)
 
 	tmp = 0;
 	if (format.specifier == 'c')
-		tmp = ft_printf_putchar(args, format, 0, 0);
+		tmp = ft_printf_putchar(args, format);
 	else if (format.specifier == 's')
 		tmp = ft_printf_putstr(args, format);
 	else if (format.specifier == 'p')
 		tmp = ft_printf_adrs(args, format);
 	else if (format.specifier == 'd' || format.specifier == 'i')
-		tmp = ft_printf_int(args, 0, format);
+		tmp = ft_printf_int(args, format);
 	else if (format.specifier == 'u')
-		tmp = ft_printf_int(args, 1, format);
+		tmp = ft_printf_int(args, format);
 	else if (format.specifier == 'x' || format.specifier == 'X')
 		tmp = ft_printf_int_in_hex(args, format);
 	else if (format.specifier)
-		tmp = ft_printf_putchar(args, format, 2, format.specifier);
+		tmp = ft_printf_putchar(args, format);
 	return (tmp);
 }
 

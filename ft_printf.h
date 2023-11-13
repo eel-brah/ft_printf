@@ -44,7 +44,7 @@ int	ft_printf(const char *str, ...);
 // int	ft_printf_int(va_list args, char c, t_format format);
 // int	ft_printf_int_in_hex(va_list args, t_format format);
 // int	ft_putchar_fd_2(char c, int fd);
-// int	ft_printf_adrs_minimum_width(unsigned long p, t_format format, char *hex);
+// int	ft_printf_print_adrs_format(unsigned long p, t_format format, char *hex);
 // int	ft_printf_hex_minimum_width(unsigned int i, t_format format);
 int	ft_printf_formating(va_list args, t_format format);
 char	*ft_get_format(const char *str);
@@ -63,19 +63,18 @@ int	ft_printf_iter(va_list args, const char *str);
 
 
 int	ft_putchar_fd_2(char c, int fd);
-int	ft_puthex(unsigned long p, int fd, char *hex, int *printed);
+int	ft_puthex(unsigned long p, char *hex);
 int	ft_putnbr_2(unsigned int nb, int fd);
-int	ft_putnbr_fd_2(int n, char u, int fd);
+int	ft_putnbr_fd_2(int n, char c, int fd);
 int	ft_putstr_fd_2(char *str, int fd, int len);
-int	ft_printf_putchar(va_list args, t_format format, int w, char no);
+int	ft_printf_putchar(va_list args, t_format format);
 int	ft_printf_putstr(va_list args, t_format format);
 int	ft_printf_adrs(va_list args, t_format format);
 int	ft_int_len(int n, char c);
 int ft_hex_len(unsigned long p);
-int	ft_printf_adrs_minimum_width(unsigned long p, t_format format, char *hex);
-int	ft_printf_int_minimum_width(int i, t_format format, char c);
-int	ft_printf_hex_minimum_width(unsigned int i, t_format format);
-int	ft_printf_int(va_list args, char c, t_format format);
+int	ft_printf_print_adrs_format(unsigned long p, t_format format, char *hex);
+int	ft_printf_pirnt_format(int i, t_format format);
+int	ft_printf_int(va_list args, t_format format);
 int	ft_printf_int_in_hex(va_list args, t_format format);
 
 #endif
