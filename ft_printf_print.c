@@ -97,7 +97,7 @@ int	ft_printf_print_paddings(int pad, char c)
 	return (0);
 }
 
-int	ft_printf_print_char_format(char x, int print, char *str, char c)
+int	ft_printf_print_chars(char x, int print, char *str, char c)
 {
 	if (x == 's')
 	{
@@ -112,76 +112,99 @@ int	ft_printf_print_char_format(char x, int print, char *str, char c)
 	return (0);
 }
 
-int	ft_printf_putchar(va_list args, t_format format)
+int ft_printf_print_char_hyphen(t_format format, int *print, char *str, char c)
 {
-	int	print;
 	int	padding;
-	char c;
-	char *str;
 
-	padding = 0;
-	c = 0;
+	if (ft_printf_print_chars(format.specifier, *print, str, c) == -1)
+		return -1;
+	padding = ft_printf_get_padding(format.hyphen_nmb, *print);
+	*print += padding;
+	if (ft_printf_print_paddings(padding, ' ') == -1)
+		return (-1);
+	return (0);
+}
+
+int ft_printf_print_char_zero(t_format format, int *print, char *str, char c)
+{
+	int	padding;
+
+	padding = ft_printf_get_padding(format.zero_nmb, *print);
+	if (ft_printf_print_paddings(padding, '0') == -1)
+		return (-1);
+	if (ft_printf_print_chars(format.specifier, *print, str, c) == -1)
+		return -1;
+	*print += padding;
+	return (0);
+}
+
+int ft_printf_print_char_nmb(t_format format, int *print, char *str, char c)
+{
+	int	padding;
+
+	padding = ft_printf_get_padding(format.nmb, *print);
+	if (ft_printf_print_paddings(padding, ' ') == -1)
+		return (-1);
+	if (ft_printf_print_chars(format.specifier, *print, str, c) == -1)
+		return -1;
+	*print += padding;
+	return (0);
+}
+
+void	ft_printf_print_chars_helper(t_format format, va_list args, int *print, char **str, char *c)
+{
 	if (format.specifier == 's')
 	{
-		str = va_arg(args, char *);
-		if (str)
-			print = ft_strlen(str);
+		*str = va_arg(args, char *);
+		if (*str)
+			*print = ft_strlen(*str);
 		else 
-			print = 6;
+			*print = 6;
 	}
 	else if (format.specifier == 'c')
 	{
-		c = va_arg(args, int);
-		print = 1;
+		*c = va_arg(args, int);
+		*print = 1;
 	}
 	else
 	{
-		c = format.specifier;
-		print = 1;
+		*c = format.specifier;
+		*print = 1;
 	}
 	if (format.specifier == 's' && format.flags & 1 << 6)
 	{
-		if (format.precision < print)
-			print = format.precision;
+		if (format.precision < *print)
+			*print = format.precision;
 	}
+}
+
+int	ft_printf_print_chars_formats(va_list args, t_format format)
+{
+	int	print;
+	char c;
+	char *str;
+	int	tmp;
+
+	c = 0;
+	str = NULL;
+	print = 0;
+	ft_printf_print_chars_helper(format, args, &print, &str, &c);
 	if (format.flags & 1 << 2)
-	{
-		if (ft_printf_print_char_format(format.specifier, print, str, c) == -1)
-			return -1;
-		padding = ft_printf_get_padding(format.hyphen_nmb, print);
-		print += padding;
-		if (ft_printf_print_paddings(padding, ' ') == -1)
-			return (-1);
-	}
+		tmp = ft_printf_print_char_hyphen(format, &print, str, c);
 	else if (format.flags & 1)
-	{
-		padding = ft_printf_get_padding(format.zero_nmb, print);
-		if (ft_printf_print_paddings(padding, '0') == -1)
-			return (-1);
-		if (ft_printf_print_char_format(format.specifier, print, str, c) == -1)
-			return -1;
-		print += padding;
-	}
+		tmp = ft_printf_print_char_zero(format, &print, str, c);
 	else if (format.nmb && format.nmb > print) // change
-	{
-		padding = ft_printf_get_padding(format.nmb, print);
-		if (ft_printf_print_paddings(padding, ' ') == -1)
-			return (-1);
-		if (ft_printf_print_char_format(format.specifier, print, str, c) == -1)
-			return -1;
-		print += padding;
-	}
+		tmp = ft_printf_print_char_nmb(format, &print, str, c);
 	else
-	{
-		if (ft_printf_print_char_format(format.specifier, print, str, c) == -1)
-			return -1;
-	}
+		tmp = ft_printf_print_chars(format.specifier, print, str, c);
+	if (tmp == -1)
+		return (-1);
 	return (print);
 }
 
 int	ft_printf_putstr(va_list args, t_format format)
 {
-	return (ft_printf_putchar(args, format));
+	return (ft_printf_print_chars_formats(args, format));
 }
 
 int	ft_printf_adrs(va_list args, t_format format)

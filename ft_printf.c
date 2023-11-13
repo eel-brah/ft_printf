@@ -36,7 +36,7 @@ int	ft_printf_formating(va_list args, t_format format)
 
 	tmp = 0;
 	if (format.specifier == 'c')
-		tmp = ft_printf_putchar(args, format);
+		tmp = ft_printf_print_chars_formats(args, format);
 	else if (format.specifier == 's')
 		tmp = ft_printf_putstr(args, format);
 	else if (format.specifier == 'p')
@@ -48,7 +48,7 @@ int	ft_printf_formating(va_list args, t_format format)
 	else if (format.specifier == 'x' || format.specifier == 'X')
 		tmp = ft_printf_int_in_hex(args, format);
 	else if (format.specifier)
-		tmp = ft_printf_putchar(args, format);
+		tmp = ft_printf_print_chars_formats(args, format);
 	return (tmp);
 }
 
