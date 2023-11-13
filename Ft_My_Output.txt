@@ -1,0 +1,73 @@
+[|000000000000000Hello  |]
+
+New 000: I= 27, TestN: 1
+[|Hello  .15s|]
+
+New 000: I= 16, TestN: 2
+[|Hello  |]
+
+New 000: I= 12, TestN: 3
+[|               Hello  |]
+
+New 000: I= 27, TestN: 4
+[|                                                                                             Hello  .15s|]
+
+New 000: I= 109, TestN: 5
+[|               Hello  |]
+
+New 000: I= 27, TestN: 6
+[||]
+
+New 000: I= 5, TestN: 7
+[|Hello  |]
+
+New 000: I= 12, TestN: 8
+[|                                                                                             Hello  |]
+
+New 000: I= 105, TestN: 9
+[|Hello                 |]
+
+New 000: I= 27, TestN: 10
+[|Hello                                                                                               .15s|]
+
+New 000: I= 109, TestN: 11
+[|Hello                 |]
+
+New 000: I= 27, TestN: 12
+[|                      |]
+
+New 000: I= 27, TestN: 13
+[||]
+
+New 000: I= 5, TestN: 14
+[|Hello  |]
+
+New 000: I= 12, TestN: 15
+[|Hello                                                                                                                                                                                                                            |]
+
+New 000: I= 230, TestN: 16
+  Or	:	coucou, ca va?
+
+New 000: I= 22, TestN: 17
+  Or	:	The string "TRALALA" is visible.
+
+New 000: I= 40, TestN: 18
+  Or	:	The string "TRALALATRALALATRALALA" is visible.
+
+New 000: I= 54, TestN: 19
+  Or	:	The Null string "(null)" is visible.
+
+New 000: I= 44, TestN: 20
+  Or	:	The Null string "(null)(null)(null)" is visible.
+
+New 000: I= 56, TestN: 21
+  Or	:	The Null string "(null)(null)(null)(null)" is visible.
+
+New 000: I= 62, TestN: 22
+  Or	:	The string "(null)" is visible.
+
+New 000: I= 39, TestN: 23
+  Or	:	The string "TRALALA" is visible.
+
+New 000: I= 40, TestN: 24
+  Or	:	The string "                             TRALALA

@@ -13,12 +13,12 @@
 #ifndef LIBFTPRINTF_H
 # define LIBFTPRINTF_H
 
-# include "libft/unc/libft.h"
+# include "libft/libft.h"
 # include <unistd.h>
 # include <stdarg.h>
 # include <stdio.h>
-char	*ft_strchr(const char *s, int c);
-
+//char	*ft_strchr(const char *s, int c);
+void	basic_string_conversion_test();
 typedef struct s_format
 {
 	char	flags; // 0-+ #

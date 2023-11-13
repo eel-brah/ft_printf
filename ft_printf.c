@@ -12,6 +12,24 @@
 
 #include "ft_printf.h"
 
+
+int	ft_atoi_2(const char *str)
+{
+	int		sign;
+	int		nb;
+
+	sign = 1;
+	nb = 0;
+	//while (ft_isspace(*str))
+	//	str++;
+	// if (*str == '-' || *str == '+')
+	// 	if (*str++ == '-')
+	// 		sign = -1;
+	while (*str >= '0' && *str <= '9')
+		nb = nb * 10 + (*str++ - '0');
+	return (nb * sign);
+}
+
 int	ft_printf_formating(va_list args, t_format format)
 {
 	int	tmp;
@@ -110,7 +128,7 @@ void	ft_get_zero_flag_nmb_helper(char *tmp, t_format *format)
 
 	skp = ft_to_skip(tmp);
 	if (ft_isdigit(*(tmp + skp))) // && *(tmp + skp) != 48 // why kont drt hadi
-		format->zero_nmb = ft_atoi(tmp + skp);
+		format->zero_nmb = ft_atoi_2(tmp + skp);
 	else if (format->zero_nmb == 0)
 		format->zero_nmb = format->nmb;
 	tmp += skp;
@@ -119,7 +137,7 @@ void	ft_get_zero_flag_nmb_helper(char *tmp, t_format *format)
 	while (skp > 0)
 	{
 		if (ft_isdigit(*(tmp + skp)) && *(tmp + skp) != 48)
-			format->zero_nmb = ft_atoi(tmp + skp);
+			format->zero_nmb = ft_atoi_2(tmp + skp);
 		tmp += skp;
 		tmp += ft_to_skip_digit(tmp);
 		skp = ft_to_skip(tmp);
@@ -137,9 +155,18 @@ void	ft_get_zero_flag_nmb(char *formats, t_format *format)
 		format->flags = format->flags | 1;
 		tmp = formats + skp + 1;
 		ft_get_zero_flag_nmb_helper (tmp, format);
+		if (format->zero_nmb != 0)
+			format->hyphen_nmb = format->zero_nmb;
 	}
 	else if (ft_isdigit(*(formats + skp)))
-		format->nmb = ft_atoi(formats + skp);
+	{
+		format->nmb = ft_atoi_2(formats + skp);
+		if (format->nmb != 0)
+		{
+			format->hyphen_nmb = format->nmb;
+			format->zero_nmb = format->nmb;
+		}
+	}
 }
 
 void	ft_format_hyphen(t_format *format, char *tmp)
@@ -149,19 +176,24 @@ void	ft_format_hyphen(t_format *format, char *tmp)
 
 	nmb = 0;
 	format->flags = format->flags | 1 << 2;
-	nmb = ft_atoi(tmp);
-	if (nmb > format->hyphen_nmb)
-		format->hyphen_nmb = nmb;
+	nmb = ft_atoi_2(tmp);
+	if (nmb > 0)
+		format->hyphen_nmb = nmb;	
 	tmp += ft_to_skip_digit(tmp);
 	skp = ft_to_skip(tmp);
 	while (skp > 0)
 	{
 		if (ft_isdigit(*(tmp + skp)) && *(tmp + skp) != 48)
-			format->hyphen_nmb = ft_atoi(tmp + skp);
+			format->hyphen_nmb = ft_atoi_2(tmp + skp);
 		tmp += skp;
 		tmp += ft_to_skip_digit(tmp);
 		skp = ft_to_skip(tmp);
 	}
+	// if (format->hyphen_nmb == 0)
+	// {
+	// 	format->hyphen_nmb
+	// 	if ()
+	// }
 }
 
 void	ft_format_initialization(t_format *format, char *formats)
@@ -177,7 +209,7 @@ void	ft_format_initialization(t_format *format, char *formats)
 
 void	ft_format_iter(char c, t_format *format, char *formats)
 {
-	int	skp;
+	//int	skp;
 
 	if (c == '-')
 		ft_format_hyphen(format, formats + 1);
@@ -185,22 +217,33 @@ void	ft_format_iter(char c, t_format *format, char *formats)
 	{
 		format->flags = format->flags | 1 << 3;
 		ft_get_zero_flag_nmb(formats, format);
+		int i = ft_atoi_2(formats+1);
+		if (i != 0)
+			format->hyphen_nmb = i;
 	}
 	else if (c == ' ')
 	{
 		format->flags = format->flags | 1 << 4;
 		ft_get_zero_flag_nmb(formats, format);
+		int i = ft_atoi_2(formats+1);
+		if (i != 0)
+			format->hyphen_nmb = i;
+		
 	}
 	else if (c == '#')
 	{
 		format->flags = format->flags | 1 << 5;
 		ft_get_zero_flag_nmb (formats, format);
+		int i = ft_atoi_2(formats+1);
+		if (i != 0)
+			format->hyphen_nmb = i;
 	}
 	else if (c == '.')
 	{
 		format->flags = format->flags | 1 << 6;
-		skp = ft_to_skip(formats + 1);
-		format->precision = ft_atoi(formats + skp + 1);
+		//skp = ft_to_skip(formats + 1);
+		format->precision = ft_atoi_2(formats+1);
+		//printf("\n%i=============\n", format->precision);
 	}
 }
 

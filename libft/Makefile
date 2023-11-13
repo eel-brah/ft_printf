@@ -5,7 +5,7 @@ AR := ar
 ARFLAGS := rcs
 
 SRC_DIRS := .
-INCLUDE := unc
+INCLUDE := libft.h
 
 SRC_FILES := ft_isascii.c \
 			ft_memcpy.c \
