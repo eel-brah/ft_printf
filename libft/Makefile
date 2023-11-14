@@ -62,7 +62,7 @@ $(NAME): $(OBJ_FILES)
 $(SRC_DIRS)/%.o: $(SRC_DIRS)/%.c $(INCLUDE)
 	$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
-bonus: $(BONUS_OBJ_FILES) $(OBJ_FILES)
+bonus: $(BONUS_OBJ_FILES)
 	$(AR) $(ARFLAGS) $(NAME) $^
 
 $(SRC_DIRS)/%_bonus.o: $(SRC_DIRS)/%_bonus.c $(INCLUDE)

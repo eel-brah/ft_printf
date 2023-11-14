@@ -24,7 +24,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	if (!*n)
 		return ((char *)p);
 	if (!p && !len)
-		return (0);
+		return (NULL);
 	while (*p && len)
 	{
 		n = needle;
@@ -37,5 +37,5 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		p = t + 1;
 		len--;
 	}
-	return (0);
+	return (NULL);
 }

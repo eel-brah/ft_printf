@@ -10,7 +10,10 @@ LIBFT := $(LIBFTDIR)/libft.a
 SRC_DIRS := .
 INCLUDE := ft_printf.h
 
-SRC_FILES := ft_printf.c ft_printf_print.c
+SRC_FILES := ft_printf.c ft_printf_print.c ft_printf_print_ints_format.c \
+			ft_printf_print_ints_format_helpers.c ft_printf_print_ints_format_helpers_2.c \
+			ft_printf_print_adrs.c ft_printf_print_ints_adrs_helpers.c ft_printf_print_helpers.c \
+			ft_printf_print_chars.c ft_printf_format_generator.c ft_printf_format_fill.c
 OBJ_FILES := $(SRC_FILES:.c=.o)
 
 NAME := libftprintf.a
