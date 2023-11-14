@@ -1,0 +1,1122 @@
+000000000k
+k         
+k        
+k         
+k
+k 
+k
+k 
+k
+00000hello
+hello     
+hello    
+hello     
+hello
+hello
+hello
+0000hello
+hello    
+hello    
+hello          
+               
+hel
+hel       
+hel
+hel            
+hello          
+hel
+hel
+hel
+                     k
+000000000000000000000k
+k        
+                     k
+k
+k
+k        
+k         
+k
+k 
+k
+k 
+k
+                     %
+000000000000000000000%
+%        
+                     %
+%
+%
+%        
+%         
+%
+% 
+%
+% 
+%
+%k
+8: +00000000000000000000000000383$
+9: +383                $
+10: 000000000$
+12: +00000000000000000383
+12.1: +383
+12.2: +383      l
+12.3: +000000383l
+12.3.1: +000000383l
+12.3.2: +383l
+12.4: +383l
+12.5: +383l
+12.6: +383l
+12.6: +383l
+13:          +0000000383$
+13:          +0000000383$
+14: 000000000
+15:          -0000000383$
+16: {-12  }
+16.0: {-0012}
+16.1: {-00012         }
+16.5: {         -00000000000000000012}
+16.7: {         -00000000000000000012}
+17: {-12                 }
+000000000k
+Test: 0 Return: 11
+Test: 0 Return: 11
+
+k         
+Test: 1 Return: 11
+Test: 1 Return: 11
+
+k        
+Test: 2 Return: 10
+Test: 2 Return: 10
+
+k         
+Test: 3 Return: 11
+Test: 3 Return: 11
+
+k
+Test: 4 Return: 2
+Test: 4 Return: 2
+
+k 
+Test: 5 Return: 3
+Test: 5 Return: 3
+
+k
+Test: 6 Return: 2
+Test: 6 Return: 2
+
+k 
+Test: 7 Return: 3
+Test: 7 Return: 3
+
+k
+Test: 8 Return: 2
+Test: 8 Return: 2
+
+00000hello
+Test: 9 Return: 11
+Test: 9 Return: 11
+
+hello     
+Test: 10 Return: 11
+Test: 10 Return: 11
+
+hello    
+Test: 11 Return: 10
+Test: 11 Return: 10
+
+hello     
+Test: 12 Return: 11
+Test: 12 Return: 11
+
+hello
+Test: 13 Return: 6
+Test: 13 Return: 6
+
+hello
+Test: 14 Return: 6
+Test: 14 Return: 6
+
+hello
+Test: 15 Return: 6
+Test: 15 Return: 6
+
+0000hello
+Test: 16 Return: 10
+Test: 16 Return: 10
+
+hello    
+Test: 17 Return: 10
+Test: 17 Return: 10
+
+hello    
+Test: 18 Return: 10
+Test: 18 Return: 10
+
+hello          
+Test: 19 Return: 16
+Test: 19 Return: 16
+
+               
+Test: 20 Return: 16
+Test: 20 Return: 16
+
+hel
+Test: 21 Return: 4
+Test: 21 Return: 4
+
+hel       
+Test: 22 Return: 11
+Test: 22 Return: 11
+
+hel
+Test: 23 Return: 4
+Test: 23 Return: 4
+
+hel            
+Test: 24 Return: 16
+Test: 24 Return: 16
+
+hello          
+Test: 25 Return: 16
+Test: 25 Return: 16
+
+hel
+Test: 26 Return: 4
+Test: 26 Return: 4
+
+hel
+Test: 27 Return: 4
+Test: 27 Return: 4
+
+hel
+Test: 28 Return: 4
+Test: 28 Return: 4
+
+                     k
+Test: 29 Return: 23
+Test: 29 Return: 23
+
+000000000000000000000k
+Test: 30 Return: 23
+Test: 30 Return: 23
+
+k        
+Test: 31 Return: 10
+Test: 31 Return: 10
+
+                     k
+Test: 32 Return: 23
+Test: 32 Return: 23
+
+k
+Test: 33 Return: 2
+Test: 33 Return: 2
+
+k
+Test: 34 Return: 2
+Test: 34 Return: 2
+
+k        
+Test: 35 Return: 10
+Test: 35 Return: 10
+
+k         
+Test: 36 Return: 11
+Test: 36 Return: 11
+
+k
+Test: 37 Return: 2
+Test: 37 Return: 2
+
+k 
+Test: 38 Return: 3
+Test: 38 Return: 3
+
+k
+Test: 39 Return: 2
+Test: 39 Return: 2
+
+k 
+Test: 40 Return: 3
+Test: 40 Return: 3
+
+k
+Test: 41 Return: 2
+Test: 41 Return: 2
+
+                     %
+Test: 42 Return: 23
+Test: 42 Return: 23
+
+000000000000000000000%
+Test: 43 Return: 23
+Test: 43 Return: 23
+
+%        
+Test: 44 Return: 10
+Test: 44 Return: 10
+
+                     %
+Test: 45 Return: 23
+Test: 45 Return: 23
+
+%
+Test: 46 Return: 2
+Test: 46 Return: 2
+
+%
+Test: 47 Return: 2
+Test: 47 Return: 2
+
+%        
+Test: 48 Return: 10
+Test: 48 Return: 10
+
+%         
+Test: 49 Return: 11
+Test: 49 Return: 11
+
+%
+Test: 50 Return: 2
+Test: 50 Return: 2
+
+% 
+Test: 51 Return: 3
+Test: 51 Return: 3
+
+%
+Test: 52 Return: 2
+Test: 52 Return: 2
+
+% 
+Test: 53 Return: 3
+Test: 53 Return: 3
+
+%
+Test: 54 Return: 2
+Test: 54 Return: 2
+
+%k
+Test: 55 Return: 3
+Test: 55 Return: 3
+
+
+8: +00000000000000000000000000383$
+Test: 56 Return: 35
+Test: 56 Return: 35
+
+9: +383                $
+Test: 56 Return: 25
+Test: 56 Return: 25
+
+10: 000000000$
+Test: 56 Return: 15
+Test: 56 Return: 15
+
+12: +00000000000000000383
+Test: 56 Return: 26
+Test: 56 Return: 26
+
+12.1: +383
+Test: 56 Return: 11
+Test: 56 Return: 11
+
+12.2: +383      l
+Test: 56 Return: 18
+Test: 56 Return: 18
+
+12.3: +000000383l
+Test: 56 Return: 18
+Test: 56 Return: 18
+
+12.3.1: +000000383l
+Test: 56 Return: 20
+Test: 56 Return: 20
+
+12.3.2: +383l
+Test: 56 Return: 14
+Test: 56 Return: 14
+
+12.4: +383l
+Test: 56 Return: 12
+Test: 56 Return: 12
+
+12.5: +383l
+Test: 56 Return: 12
+Test: 56 Return: 12
+
+12.6: +383l
+Test: 56 Return: 12
+Test: 56 Return: 12
+
+12.6: +383l
+Test: 56 Return: 12
+Test: 56 Return: 12
+
+13:          +0000000383$
+Test: 56 Return: 26
+Test: 56 Return: 26
+
+13:          +0000000383$
+Test: 56 Return: 26
+Test: 56 Return: 26
+
+14: 000000000
+Test: 56 Return: 14
+Test: 56 Return: 14
+
+15:          -0000000383$
+Test: 56 Return: 26
+Test: 56 Return: 26
+
+16: {-12  }
+Test: 56 Return: 12
+Test: 56 Return: 12
+
+16.0: {-0012}
+Test: 56 Return: 14
+Test: 56 Return: 14
+
+16.1: {-00012         }
+Test: 56 Return: 24
+Test: 56 Return: 24
+
+16.5: {         -00000000000000000012}
+Test: 56 Return: 39
+Test: 56 Return: 39
+
+16.7: {         -00000000000000000012}
+Test: 56 Return: 39
+Test: 56 Return: 39
+
+17: {-12                 }
+Test: 56 Return: 27
+20: 0$
+21:  $
+12: 000000000k
+12.1: k
+12.2: k         l
+12.3: 000000000kl
+12.3.1: 000000000kl
+12.3.2: kl
+12.4: kl
+12.5: kl
+12.6: kl
+12.6: kl
+12:                                           0x00000000000000000000000000000000000000000007ffeeca797ef
+12.1: 0x7ffeeca797ef
+12.2: 0x7ffeeca797ef                                         l
+12.3: 0x000000000000000000000000000000000000000007ffeeca797efl
+12.3.1: 0x00000000000000000007ffeeca797efl
+12.3.2: 0x7ffeeca797efl
+12.4: 0x00000000000000000007ffeeca797efl
+12.5: 0x7ffeeca797efl
+12.6: 0x7ffeeca797efl
+12.6: 0x7ffeeca797efl
+12.6: 0x0l
+12:                                             0000000000000000000000000000000000000000000000000000037
+12.1: 37
+12.2: 37                                                     l
+12.3: 0000000000000000000000000000000000000000000000000000037l
+12.3.1: 000000000000000000000000000000037l
+12.3.2: 37l
+12.4: 000000000000000000000000000000037l
+12.5: 37l
+12.6: 37l
+12.6: 37l
+[|00000000000000Hello  *|]
+[|Hello  *.15s|]
+[|Hello  *|]
+[|              Hello  *|]
+[|                                                                                            Hello  *.15s|]
+[|              Hello  *|]
+[||]
+[|Hello  *|]
+[|                                                                                            Hello  *|]
+[|Hello  *              |]
+[|Hello  *                                                                                            .15s|]
+[|Hello  *                                                                                            .15s|]
+[|                      |]
+[||]
+[|Hello  *|]
+[|Hello  *                                                                                                                                                                                                                         |]
+  Or	:	coucou, ca va?
+  Or	:	The string "TRALALA" is visible.
+  Or	:	The string "TRALALATRALALATRALALA" is visible.
+Test: 56 Return: 27
+
+20: 0$
+Test: 56 Return: 7
+Test: 56 Return: 7
+
+21:  $
+Test: 56 Return: 7
+Test: 56 Return: 7
+
+
+
+
+
+12: 000000000k
+Test: 56 Return: 15
+Test: 56 Return: 15
+
+12.1: k
+Test: 56 Return: 8
+Test: 56 Return: 8
+
+12.2: k         l
+Test: 56 Return: 18
+Test: 56 Return: 18
+
+12.3: 000000000kl
+Test: 56 Return: 18
+Test: 56 Return: 18
+
+12.3.1: 000000000kl
+Test: 56 Return: 20
+Test: 56 Return: 20
+
+12.3.2: kl
+Test: 56 Return: 11
+Test: 56 Return: 11
+
+12.4: kl
+Test: 56 Return: 9
+Test: 56 Return: 9
+
+12.5: kl
+Test: 56 Return: 9
+Test: 56 Return: 9
+
+12.6: kl
+Test: 56 Return: 9
+Test: 56 Return: 9
+
+12.6: kl
+Test: 56 Return: 9
+Test: 56 Return: 9
+
+
+
+
+
+12:                                           0x00000000000000000000000000000000000000000007ffeeca797ef
+Test: 56 Return: 104
+Test: 56 Return: 104
+
+12.1: 0x7ffeeca797ef
+Test: 56 Return: 21
+Test: 56 Return: 21
+
+12.2: 0x7ffeeca797ef                                         l
+Test: 56 Return: 63
+Test: 56 Return: 63
+
+12.3: 0x000000000000000000000000000000000000000007ffeeca797efl
+Test: 56 Return: 63
+Test: 56 Return: 63
+
+12.3.1: 0x00000000000000000007ffeeca797efl
+Test: 56 Return: 43
+Test: 56 Return: 43
+
+12.3.2: 0x7ffeeca797efl
+Test: 56 Return: 24
+Test: 56 Return: 24
+
+12.4: 0x00000000000000000007ffeeca797efl
+Test: 56 Return: 41
+Test: 56 Return: 41
+
+12.5: 0x7ffeeca797efl
+Test: 56 Return: 22
+Test: 56 Return: 22
+
+12.6: 0x7ffeeca797efl
+Test: 56 Return: 22
+Test: 56 Return: 22
+
+12.6: 0x7ffeeca797efl
+Test: 56 Return: 22
+Test: 56 Return: 22
+
+12.6: 0x0l
+Test: 56 Return: 11
+Test: 56 Return: 11
+
+
+
+
+
+12:                                             0000000000000000000000000000000000000000000000000000037
+Test: 56 Return: 104
+Test: 56 Return: 104
+
+12.1: 37
+Test: 56 Return: 9
+Test: 56 Return: 9
+
+12.2: 37                                                     l
+Test: 56 Return: 63
+Test: 56 Return: 63
+
+12.3: 0000000000000000000000000000000000000000000000000000037l
+Test: 56 Return: 63
+Test: 56 Return: 63
+
+12.3.1: 000000000000000000000000000000037l
+Test: 56 Return: 43
+Test: 56 Return: 43
+
+12.3.2: 37l
+Test: 56 Return: 12
+Test: 56 Return: 12
+
+12.4: 000000000000000000000000000000037l
+Test: 56 Return: 41
+Test: 56 Return: 41
+
+12.5: 37l
+Test: 56 Return: 10
+Test: 56 Return: 10
+
+12.6: 37l
+Test: 56 Return: 10
+Test: 56 Return: 10
+
+12.6: 37l
+Test: 56 Return: 10
+Test: 56 Return: 10
+
+Test: 56 Return: 27
+
+[|00000000000000Hello  *|]
+Test: 56 Return: 27
+
+Test: 56 Return: 17
+
+[|Hello  *.15s|]
+Test: 56 Return: 17
+
+Test: 56 Return: 13
+
+[|Hello  *|]
+Test: 56 Return: 13
+
+Test: 56 Return: 27
+
+[|              Hello  *|]
+Test: 56 Return: 27
+
+Test: 56 Return: 109
+
+[|                                                                                            Hello  *.15s|]
+Test: 56 Return: 109
+
+Test: 56 Return: 27
+
+[|              Hello  *|]
+Test: 56 Return: 27
+
+Test: 56 Return: 5
+
+[||]
+Test: 56 Return: 5
+
+Test: 56 Return: 13
+
+[|Hello  *|]
+Test: 56 Return: 13
+
+Test: 56 Return: 105
+
+[|                                                                                            Hello  *|]
+Test: 56 Return: 105
+
+Test: 56 Return: 27
+
+[|Hello  *              |]
+Test: 56 Return: 27
+
+Test: 56 Return: 109
+
+[|Hello  *                                                                                            .15s|]
+Test: 56 Return: 109
+
+Test: 56 Return: 109
+
+[|Hello  *                                                                                            .15s|]
+Test: 56 Return: 109
+
+Test: 56 Return: 27
+
+[|                      |]
+Test: 56 Return: 27
+
+Test: 56 Return: 5
+
+[||]
+Test: 56 Return: 5
+
+Test: 56 Return: 13
+
+[|Hello  *|]
+Test: 56 Return: 13
+
+Test: 56 Return: 230
+
+[|Hello  *                                                                                                                                                                                                                         |]
+Test: 56 Return: 230
+
+Test: 56 Return: 22
+
+  Or	:	coucou, ca va?
+Test: 56 Return: 22
+
+Test: 56 Return: 40
+
+  Or	:	The string "TRALALA" is visible.
+Test: 56 Return: 40
+
+Test: 56 Return: 54
+
+  Or	:	The string "TRALALATRALALATRALALA" is visible.
+Test: 56 Return: 54  Or	:	The Null string "(null)" is visible.
+  Or	:	The Null string "(null)(null)(null)" is visible.
+  Or	:	The Null string "(null)(null)(null)(null)" is visible.
+  Or	:	The Null string "(null)(null)(null)(null)" is visible.
+  Or	:	The Null string "(null)(null)(null)(null)" is visible.
+  Or	:	The Null string "(null)(null)" is visible.
+  Or	:	The Null string "hellosEzz" is visible.
+  Or	:	The Null string "" is visible.
+  Or	:	The Null string "" is visible.
+  Or	:	The Null string "" is visible.
+  Or	:	The Null string "" is visible.
+  Or	:	The Null string "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        " is visible.
+0x00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffbe
+-66           
+k
+, , , +0, +5, -1, -10, +100, -1862, -2147483648, +2147483647+                                                                                         00                                000000000000000000000000000000000     ,     5,    -1,   -10,   100, -1862, -2147483648, 2147483647                                5                                5                               05                                50, 5, -1, -10, 100, -1862, -2147483648, 2147483647, 5, -1, -10, 100, -1862, -2147483648, 2147483647, 5, -1, -10, 100, -1862, -2147483648, 2147483647, 5, -1, -10, 100, -1862, -2147483648, 2147483647 , 5, -1, -10, 100, -1862, -2147483648, 2147483647+0, +5, -1, -10, +100, -1862, -2147483648, +2147483647, 5, ffffffff, fffffff6, 1234, fffff8ba, abcde, 80000000, 7fffffff, ffffffff
+
+Test: 56 Return: 44
+
+  Or	:	The Null string "(null)" is visible.
+Test: 56 Return: 44
+
+Test: 56 Return: 56
+
+  Or	:	The Null string "(null)(null)(null)" is visible.
+Test: 56 Return: 56
+
+Test: 56 Return: 62
+
+  Or	:	The Null string "(null)(null)(null)(null)" is visible.
+Test: 56 Return: 62
+
+Test: 56 Return: 62
+
+  Or	:	The Null string "(null)(null)(null)(null)" is visible.
+Test: 56 Return: 62
+
+Test: 56 Return: 62
+
+  Or	:	The Null string "(null)(null)(null)(null)" is visible.
+Test: 56 Return: 62
+
+Test: 56 Return: 50
+
+  Or	:	The Null string "(null)(null)" is visible.
+Test: 56 Return: 50
+
+Test: 56 Return: 47
+
+  Or	:	The Null string "hellosEzz" is visible.
+Test: 56 Return: 47
+
+Test: 56 Return: 38
+
+  Or	:	The Null string "" is visible.
+Test: 56 Return: 38
+
+Test: 56 Return: 38
+
+  Or	:	The Null string "" is visible.
+Test: 56 Return: 38
+
+Test: 56 Return: 38
+
+  Or	:	The Null string "" is visible.
+Test: 56 Return: 38
+
+Test: 56 Return: 38
+
+  Or	:	The Null string "" is visible.
+Test: 56 Return: 38
+
+Test: 56 Return: 1182
+
+  Or	:	The Null string "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        " is visible.
+Test: 56 Return: 1182
+
+Test: 56 Return: 91
+0x00000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffbe
+Test: 56 Return: 91
+
+Test: 56 Return: 15
+-66            
+Test: 56 Return: 16
+
+Test: 56 Return: 2
+k
+Test: 56 Return: 2
+
+Test: 56 Return: 6
+, , , Test: 56 Return: 6
+
+Test: 56 Return: 54
++0, +5, -1, -10, +100, -1862, -2147483648, +2147483647Test: 56 Return: 54
+
+Test: 56 Return: 0
+Test: 56 Return: 0
+
+Test: 56 Return: 1
++Test: 56 Return: 1
+
+Test: 56 Return: 12
+            Test: 56 Return: 12
+
+Test: 56 Return: 33
+                                 Test: 56 Return: 33
+
+Test: 56 Return: 33
+                                 Test: 56 Return: 33
+
+
+
+Test: 56 Return: 12
+           0Test: 56 Return: 12
+
+Test: 56 Return: 33
+0                                Test: 56 Return: 33
+
+Test: 56 Return: 33
+000000000000000000000000000000000Test: 56 Return: 33
+
+Test: 56 Return: 65
+     ,     5,    -1,   -10,   100, -1862, -2147483648, 2147483647Test: 56 Return: 65
+
+Test: 56 Return: 33
+                                5Test: 56 Return: 33
+
+Test: 56 Return: 33
+                                5Test: 56 Return: 33
+
+Test: 56 Return: 33
+                               05Test: 56 Return: 33
+
+Test: 56 Return: 33
+                                5Test: 56 Return: 33
+
+Test: 56 Return: 50
+0, 5, -1, -10, 100, -1862, -2147483648, 2147483647Test: 56 Return: 50
+
+Test: 56 Return: 49
+, 5, -1, -10, 100, -1862, -2147483648, 2147483647Test: 56 Return: 49
+
+Test: 56 Return: 49
+, 5, -1, -10, 100, -1862, -2147483648, 2147483647Test: 56 Return: 49
+
+Test: 56 Return: 49
+, 5, -1, -10, 100, -1862, -2147483648, 2147483647Test: 56 Return: 49
+
+Test: 56 Return: 50
+ , 5, -1, -10, 100, -1862, -2147483648, 2147483647Test: 56 Return: 50
+
+Test: 56 Return: 54
++0, +5, -1, -10, +100, -1862, -2147483648, +2147483647Test: 56 Return: 54
+
+Test: 56 Return: 76
+, 5, ffffffff, fffffff6, 1234, fffff8ba, abcde,                                5                                5                               05                                50, 0x5, 0xffffffff, 0xfffffff6, 0x1234, 0xfffff8ba, 0xabcde, 0x80000000, 0x7fffffff, 0xffffffff, 5, ffffffff, fffffff6, 1234, fffff8ba, abcde, 80000000, 7fffffff, ffffffff0, 0X5, 0XFFFFFFFF, 0XFFFFFFF6, 0X1234, 0XFFFFF8BA, 0XABCDE, 0X80000000, 0X7FFFFFFF, 0XFFFFFFFF00000000000000000000000000000000000000000000091AB2C99n                                                                                                00000000000000000000000000000000000000000000000000000000000000003cda67a9        -151814501400000000000000000000000000000000000000000000091AB2C99n                                                                                                00000000000000000000000000000000000000000000000000000000000000003cda67a9-0
+%k%%%%%k00000000000000000000000000000000000000000000000000000000000000000000000000(null)                                                                           00000(null                                                                           ====                                                                           0x00000000007ffeeca797ef                                                                           0x00000000007ffeeca797ef0x                                                              0x                                                                             0000000000000003195a61                                                                             0000000000000003195a61                                                                  test 0x7ffeeca797d8   33                                                     te
++0000000000000000000000000000000000000000000000000000000000000000000000000000050ste
+ 000000000000000000000000000050                                                           ste
+ 50                 ste
++50                           ste
+ 00000000000000000050ste
+                                                                 00050ste
+                                                                                         -0000000500ste
+                                                                                          0000000000ste
+ 0000000000                                                                                         ste
++0                       ste
++25                      ste
+ 25                                                    ste
+25                                                     ste
++25                                                    ste
++25ste
++25ste
++25       ste
+(null)                                                 ste
+ 80000000, 7fffffff, ffffffffTest: 56 Return: 76
+
+Test: 56 Return: 33
+                                5Test: 56 Return: 33
+
+Test: 56 Return: 33
+                                5Test: 56 Return: 33
+
+Test: 56 Return: 33
+                               05Test: 56 Return: 33
+
+Test: 56 Return: 33
+                                5Test: 56 Return: 33
+
+Test: 56 Return: 95
+0, 0x5, 0xffffffff, 0xfffffff6, 0x1234, 0xfffff8ba, 0xabcde, 0x80000000, 0x7fffffff, 0xffffffffTest: 56 Return: 95
+
+Test: 56 Return: 76
+, 5, ffffffff, fffffff6, 1234, fffff8ba, abcde, 80000000, 7fffffff, ffffffffTest: 56 Return: 76
+
+Test: 56 Return: 95
+0, 0X5, 0XFFFFFFFF, 0XFFFFFFF6, 0X1234, 0XFFFFF8BA, 0XABCDE, 0X80000000, 0X7FFFFFFF, 0XFFFFFFFFTest: 56 Return: 95
+
+Test: 56 Return: 241
+00000000000000000000000000000000000000000000091AB2C99n                                                                                                00000000000000000000000000000000000000000000000000000000000000003cda67a9        -1518145014Test: 56 Return: 241
+
+Test: 56 Return: 222
+00000000000000000000000000000000000000000000091AB2C99n                                                                                                00000000000000000000000000000000000000000000000000000000000000003cda67a9Test: 56 Return: 222
+
+-0
+Test: 56 Return: 2
+%kTest: 56 Return: 2
+
+Test: 56 Return: 6
+%%%%%kTest: 56 Return: 6
+
+Test: 56 Return: 80
+00000000000000000000000000000000000000000000000000000000000000000000000000(null)Test: 56 Return: 80
+
+Test: 56 Return: 80
+                                                                           00000Test: 56 Return: 80
+
+Test: 56 Return: 84
+(null                                                                           ====Test: 56 Return: 84
+
+Test: 56 Return: 99
+                                                                           0x00000000007ffeeca797efTest: 56 Return: 99
+
+Test: 56 Return: 99
+                                                                           0x00000000007ffeeca797efTest: 56 Return: 99
+
+Test: 56 Return: 33
+0x                               Test: 56 Return: 33
+
+Test: 56 Return: 33
+                               0xTest: 56 Return: 33
+
+Test: 56 Return: 99
+                                                                             0000000000000003195a61Test: 56 Return: 99
+
+Test: 56 Return: 99
+                                                                             0000000000000003195a61Test: 56 Return: 99
+
+Test: 56 Return: 33
+                                 Test: 56 Return: 33
+
+Test: 56 Return: 33
+                                 Test: 56 Return: 33
+
+test 0x7ffeeca797d8   33                                                     te
+tmp : 80 , tmp1 : 80
+1
++0000000000000000000000000000000000000000000000000000000000000000000000000000050ste
+tmp : 84 , tmp1 : 84
+2
+ 000000000000000000000000000050                                                           ste
+tmp : 94 , tmp1 : 94
+3
+ 50                 ste
+tmp : 24 , tmp1 : 24
+4
++50                           ste
+tmp : 34 , tmp1 : 34
+5
+ 00000000000000000050ste
+tmp : 25 , tmp1 : 25
+6
+                                                                 00050ste
+tmp : 74 , tmp1 : 74
+7
+                                                                                         -0000000500ste
+tmp : 104 , tmp1 : 104
+8
+                                                                                          0000000000ste
+tmp : 104 , tmp1 : 104
+9
+ 0000000000                                                                                         ste
+tmp : 104 , tmp1 : 104
+10
++0                       ste
+tmp : 29 , tmp1 : 29
+11
++25                      ste
+tmp : 29 , tmp1 : 29
+12
+ 25                                                    ste
+tmp : 59 , tmp1 : 59
+13
+25                                                     ste
+tmp : 59 , tmp1 : 59
+14
++25                                                    ste
+tmp : 59 , tmp1 : 59
+15
++25ste
+tmp : 7 , tmp1 : 7
+16
++25ste
+tmp : 7 , tmp1 : 7
+17
++25       ste
+tmp : 14 , tmp1 : 14
+18
+(null)                                                 ste
+tmp : 59 , tmp1 : 59
+19
+(n(null)ste
+(null)ste
++00000000000000000000000000000000000000000000000000ste
++50       ste
++25       ste
+       +30ste
+                                +30ste
+                                                                               ate
+0000000000000000000000000000000000000000000000000000000000000000000000000000000ate
+a                   te
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ate
+a                   te
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ate
+0000000000000000000000000000000000000000000000000000000000000000000000000000000ate
+0000000000000000000000000000000000000000000000000000000000000000000000000000000ate
+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000te-----
+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000te-----
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ate
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ate
+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000te======
+                                                                                      25te==
+b                                                                                       te
+-10te
+-10te
+  0x0, 0xabcde, 0xffffffffffffffff, 0x8000000000000000, 0xffffffffffffffff, 0xfffffffffffff6d000000, 00005, -0001, -0010, 00100, -1862, -2147483648, 2147483647                                                                  0x7ffeeca797d0                                                          0x000000000000000000000x00000000000000000000                                                          NULL0x0+00000099+0000009900099     -000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000324560913ull)ste
+tmp : 10 , tmp1 : 10
+20
+(null)ste
+tmp : 10 , tmp1 : 10
+21
++00000000000000000000000000000000000000000000000000ste
+tmp : 55 , tmp1 : 55
+22
++50       ste
+tmp : 14 , tmp1 : 14
+23
++25       ste
+tmp : 14 , tmp1 : 14
+24
+       +30ste
+tmp : 14 , tmp1 : 14
+25
+                                +30ste
+tmp : 39 , tmp1 : 39
+26
+                                                                               ate
+tmp : 83 , tmp1 : 83
+27
+0000000000000000000000000000000000000000000000000000000000000000000000000000000ate
+tmp : 83 , tmp1 : 83
+28
+a                   te
+tmp : 23 , tmp1 : 23
+29
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ate
+tmp : 91 , tmp1 : 91
+30
+a                   te
+tmp : 23 , tmp1 : 23
+31
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ate
+tmp : 91 , tmp1 : 91
+32
+0000000000000000000000000000000000000000000000000000000000000000000000000000000ate
+tmp : 83 , tmp1 : 83
+33
+0000000000000000000000000000000000000000000000000000000000000000000000000000000ate
+tmp : 83 , tmp1 : 83
+34
+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000te-----
+tmp : 96 , tmp1 : 96
+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000te-----
+tmp : 96 , tmp1 : 96
+35
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ate
+tmp : 91 , tmp1 : 91
+36
+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ate
+tmp : 91 , tmp1 : 91
+37
+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000te======
+tmp : 97 , tmp1 : 97
+38
+                                                                                      25te==
+tmp : 93 , tmp1 : 93=============
+39
+b                                                                                       te
+tmp : 91 , tmp1 : 91
+40
+-10te
+tmp : 6 , tmp1 : 6
+41
+-10te
+tmp : 6 , tmp1 : 6
+
+Test: 56 Return: 94
+  0x0, 0xabcde, 0xffffffffffffffff, 0x8000000000000000, 0xffffffffffffffff, 0xfffffffffffff6d0Test: 56 Return: 94
+
+
+Test: 5 Return: 65
+00000, 00005, -0001, -0010, 00100, -1862, -2147483648, 2147483647Test: 5 Return: 65
+
+
+Test: 5 Return: 80
+                                                                  0x7ffeeca797d0Test: 5 Return: 80
+
+
+Test: 5 Return: 80
+                                                          0x00000000000000000000Test: 5 Return: 80
+
+
+Test: 5 Return: 80
+0x00000000000000000000                                                          Test: 5 Return: 80
+
+
+Test: 5 Return: 4
+NULLTest: 5 Return: 4
+
+
+Test: 5 Return: 3
+0x0Test: 5 Return: 3
+
+
+Test: 5 Return: 9
++00000099Test: 5 Return: 9
+
+
+Test: 5 Return: 9
++00000099Test: 5 Return: 9
+
+Test: 5 Return: 10
+00099     Test: 5 Return: 10
+
+Test: 5 Return: 100
+-000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000324560913Test: 5 Return: 100
+

@@ -72,7 +72,7 @@ int	ft_printf_putstr(va_list args, t_format format);
 int	ft_printf_adrs(va_list args, t_format format);
 int	ft_int_len(int n, char c);
 int ft_hex_len(unsigned long p);
-int	ft_printf_print_adrs_format(unsigned long p, t_format format, char *hex);
+int	ft_printf_print_adrs_format(unsigned long p, t_format format);
 int	ft_printf_pirnt_format(int i, t_format format);
 int	ft_printf_int(va_list args, t_format format);
 int	ft_printf_int_in_hex(va_list args, t_format format);

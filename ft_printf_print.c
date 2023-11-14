@@ -61,7 +61,8 @@ int	ft_putstr_fd_r(char *str, int fd, int len)
 	}
 	return (1);
 }
-int ft_printf_get_padding(int nmb, int print)
+
+int	ft_printf_get_padding(int nmb, int print)
 {
 	int	padding;
 
@@ -71,7 +72,6 @@ int ft_printf_get_padding(int nmb, int print)
 	else
 		return (0);
 }
-
 
 int	ft_printf_print_paddings(int pad, char c)
 {
@@ -99,12 +99,12 @@ int	ft_printf_print_chars(char x, int print, char *str, char c)
 	return (0);
 }
 
-int ft_printf_print_char_hyphen(t_format format, int *print, char *str, char c)
+int	ft_printf_print_char_hyphen(t_format format, int *print, char *str, char c)
 {
 	int	padding;
 
 	if (ft_printf_print_chars(format.specifier, *print, str, c) == -1)
-		return -1;
+		return (-1);
 	padding = ft_printf_get_padding(format.hyphen_nmb, *print);
 	*print += padding;
 	if (ft_printf_print_paddings(padding, ' ') == -1)
@@ -112,7 +112,7 @@ int ft_printf_print_char_hyphen(t_format format, int *print, char *str, char c)
 	return (0);
 }
 
-int ft_printf_print_char_zero(t_format format, int *print, char *str, char c)
+int	ft_printf_print_char_zero(t_format format, int *print, char *str, char c)
 {
 	int	padding;
 
@@ -120,12 +120,12 @@ int ft_printf_print_char_zero(t_format format, int *print, char *str, char c)
 	if (ft_printf_print_paddings(padding, '0') == -1)
 		return (-1);
 	if (ft_printf_print_chars(format.specifier, *print, str, c) == -1)
-		return -1;
+		return (-1);
 	*print += padding;
 	return (0);
 }
 
-int ft_printf_print_char_nmb(t_format format, int *print, char *str, char c)
+int	ft_printf_print_char_nmb(t_format format, int *print, char *str, char c)
 {
 	int	padding;
 
@@ -133,54 +133,56 @@ int ft_printf_print_char_nmb(t_format format, int *print, char *str, char c)
 	if (ft_printf_print_paddings(padding, ' ') == -1)
 		return (-1);
 	if (ft_printf_print_chars(format.specifier, *print, str, c) == -1)
-		return -1;
+		return (-1);
 	*print += padding;
 	return (0);
 }
 
-void	ft_printf_print_chars_helper(t_format format, va_list args, int *print, char **str, char *c)
+int	ft_printf_print_chars_helper(t_format format,
+								va_list args, char **str, char *c)
 {
+	int	print;
+
 	if (format.specifier == 's')
 	{
 		*str = va_arg(args, char *);
 		if (*str)
-			*print = ft_strlen(*str);
+			print = ft_strlen(*str);
 		else 
-			*print = 6;
+			print = 6;
 	}
 	else if (format.specifier == 'c')
 	{
 		*c = va_arg(args, int);
-		*print = 1;
+		print = 1;
 	}
 	else
 	{
 		*c = format.specifier;
-		*print = 1;
+		print = 1;
 	}
 	if (format.specifier == 's' && format.flags & 1 << 6)
-	{
-		if (format.precision < *print)
-			*print = format.precision;
-	}
+		if (format.precision < print)
+			print = format.precision;
+	return (print);
 }
 
 int	ft_printf_print_chars_formats(va_list args, t_format format)
 {
-	int	print;
-	char c;
-	char *str;
-	int	tmp;
+	int		print;
+	char	c;
+	char	*str;
+	int		tmp;
 
 	c = 0;
 	str = NULL;
 	print = 0;
-	ft_printf_print_chars_helper(format, args, &print, &str, &c);
+	print = ft_printf_print_chars_helper(format, args, &str, &c);
 	if (format.flags & 1 << 2)
 		tmp = ft_printf_print_char_hyphen(format, &print, str, c);
 	else if (format.flags & 1)
 		tmp = ft_printf_print_char_zero(format, &print, str, c);
-	else if (format.nmb && format.nmb > print) // change
+	else if (format.nmb && format.nmb > print)
 		tmp = ft_printf_print_char_nmb(format, &print, str, c);
 	else
 		tmp = ft_printf_print_chars(format.specifier, print, str, c);
@@ -197,17 +199,15 @@ int	ft_printf_putstr(va_list args, t_format format)
 int	ft_printf_adrs(va_list args, t_format format)
 {
 	unsigned long	p;
-	char			*hex;
 
-	hex = "0123456789abcdef";
 	p = (unsigned long)va_arg(args, void *);
-	return (ft_printf_print_adrs_format(p, format, hex));
+	return (ft_printf_print_adrs_format(p, format));
 }
 
 int	ft_int_len(int n, char c)
 {
 	unsigned int	nb;
-	int	len;
+	int				len;
 
 	len = 0;
 	if (n == 0)
@@ -223,7 +223,7 @@ int	ft_int_len(int n, char c)
 	return (len);
 }
 
-int ft_hex_len(unsigned long p)
+int	ft_hex_len(unsigned long p)
 {
 	int	len;
 
@@ -249,7 +249,6 @@ int	ft_printf_get_print(t_format format, unsigned long i, int *precision)
 		print = ft_hex_len(i);
 	else
 		print = ft_int_len((int)i, format.specifier);
-
 	if (i == 0 && format.flags & 1 << 6 && format.precision == 0)
 		print = 0;
 	if (format.specifier == 'p')
@@ -285,41 +284,15 @@ int	ft_pirntf_padding_s1(t_format format, int *print)
 	return (0);
 }
 
-int	ft_printf_adrs_print_hyphen(t_format format, unsigned long p, char *hex, int *print, int precision)
+int	ft_printf_adrs_print_hyphen(t_format format,
+								unsigned long p, int *print, int precision)
 {
-	int	padding;
+	int		padding;
+	char	*hex;
 
-	if ((format.hyphen_nmb == 1 ) || (format.hyphen_nmb == 0 && format.nmb == 0 && format.zero_nmb == 0))
-	{
-			if (ft_putstr_fd_r("0x", 1, 2) == -1)
-				return (-1);
-			if (!(p == 0 && format.flags & 1 << 6 && format.precision == 0))
-				if (ft_puthex(p, hex) == -1)
-					return (-1);
-	}
-	else
-	{
-		padding = ft_printf_get_padding(format.hyphen_nmb, *print);
-		*print += padding;
-		if (ft_putstr_fd_r("0x", 1, 2) == -1)
-			return (-1);
-		if (ft_printf_print_paddings(precision, '0') == -1)
-			return (-1);
-		if (!(p == 0 && format.flags & 1 << 6 && format.precision == 0))
-			if (ft_puthex(p, hex) == -1)
-				return (-1);
-		if (ft_printf_print_paddings(padding, ' ') == -1)
-			return (-1);
-	}
-	return (0);
-}
-
-int	ft_printf_adrs_print_precision(t_format format, unsigned long p, char *hex, int *print, int precision)
-{
-	int	padding;
-
-	if (ft_pirntf_padding_s1(format, print) == -1)
-			return (-1);
+	hex = "0123456789abcdef";
+	padding = ft_printf_get_padding(format.hyphen_nmb, *print);
+	*print += padding;
 	if (ft_putstr_fd_r("0x", 1, 2) == -1)
 		return (-1);
 	if (ft_printf_print_paddings(precision, '0') == -1)
@@ -327,20 +300,35 @@ int	ft_printf_adrs_print_precision(t_format format, unsigned long p, char *hex, 
 	if (!(p == 0 && format.flags & 1 << 6 && format.precision == 0))
 		if (ft_puthex(p, hex) == -1)
 			return (-1);
-	if (format.flags & 1 << 2 && format.hyphen_nmb == 0 && format.zero_nmb > *print)
-	{
-		padding = ft_printf_get_padding(format.zero_nmb, *print);
-		*print += padding;
-		if (ft_printf_print_paddings(padding, ' ') == -1)
-			return (-1);
-	}
+	if (ft_printf_print_paddings(padding, ' ') == -1)
+		return (-1);
 	return (0);
 }
 
-int	ft_printf_adrs_print_zero(t_format format, unsigned long p, char *hex, int *print)
+int	ft_printf_adrs_print_precision(t_format format,
+									unsigned long p, int *print, int precision)
 {
-	int	padding;
+	char	*hex;
 
+	hex = "0123456789abcdef";
+	if (ft_pirntf_padding_s1(format, print) == -1)
+		return (-1);
+	if (ft_putstr_fd_r("0x", 1, 2) == -1)
+		return (-1);
+	if (ft_printf_print_paddings(precision, '0') == -1)
+		return (-1);
+	if (!(p == 0 && format.flags & 1 << 6 && format.precision == 0))
+		if (ft_puthex(p, hex) == -1)
+			return (-1);
+	return (0);
+}
+
+int	ft_printf_adrs_print_zero(t_format format, unsigned long p, int *print)
+{
+	int		padding;
+	char	*hex;
+
+	hex = "0123456789abcdef";
 	padding = ft_printf_get_padding(format.zero_nmb, *print);
 	*print += padding;
 	if (ft_putstr_fd_r("0x", 1, 2) == -1)
@@ -353,10 +341,12 @@ int	ft_printf_adrs_print_zero(t_format format, unsigned long p, char *hex, int *
 	return (0);
 }
 
-int	ft_printf_adrs_print_nmb(t_format format, unsigned long p, char *hex, int *print)
+int	ft_printf_adrs_print_nmb(t_format format, unsigned long p, int *print)
 {
-	int	padding;
+	int		padding;
+	char	*hex;
 
+	hex = "0123456789abcdef";
 	padding = ft_printf_get_padding(format.nmb, *print);
 	*print += padding;
 	if (ft_printf_print_paddings(padding, ' ') == -1)
@@ -369,8 +359,11 @@ int	ft_printf_adrs_print_nmb(t_format format, unsigned long p, char *hex, int *p
 	return (0);
 }
 
-int	ft_printf_adrs_print_non(t_format format, unsigned long p, char *hex)
+int	ft_printf_adrs_print_non(t_format format, unsigned long p)
 {
+	char	*hex;
+
+	hex = "0123456789abcdef";
 	if (ft_putstr_fd_r("0x", 1, 2) == -1)
 		return (-1);
 	if (!(p == 0 && format.flags & 1 << 6 && format.precision == 0))
@@ -379,31 +372,31 @@ int	ft_printf_adrs_print_non(t_format format, unsigned long p, char *hex)
 	return (0);
 }
 
-int	ft_printf_print_adrs_format(unsigned long p, t_format format, char *hex)
+int	ft_printf_print_adrs_format(unsigned long p, t_format format)
 {
-	int print;
-	int precision;
+	int	print;
+	int	precision;
 	int	tmp;
 
 	precision = 0;
-	tmp = 0;
 	print = ft_printf_get_print(format, p, &precision);
-	if ((format.flags & 1 << 2 && (precision == 0 || format.hyphen_nmb > print - precision)))
-		tmp = ft_printf_adrs_print_hyphen(format, p, hex, &print, precision);
+	if ((format.flags & 1 << 2
+			&& (precision == 0 || format.hyphen_nmb > print - precision)))
+		tmp = ft_printf_adrs_print_hyphen(format, p, &print, precision);
 	else if (format.flags & 1 << 6)
-		tmp = ft_printf_adrs_print_precision(format, p, hex, &print, precision);
+		tmp = ft_printf_adrs_print_precision(format, p, &print, precision);
 	else if (format.flags & 1)
-		tmp = ft_printf_adrs_print_zero(format, p, hex, &print);
+		tmp = ft_printf_adrs_print_zero(format, p, &print);
 	else if (format.nmb > print && format.nmb > print)
-		tmp = ft_printf_adrs_print_nmb(format, p, hex, &print);
+		tmp = ft_printf_adrs_print_nmb(format, p, &print);
 	else
-		tmp = ft_printf_adrs_print_non(format, p, hex);
+		tmp = ft_printf_adrs_print_non(format, p);
 	if (tmp == -1)
 		return (-1);
 	return (print);
 }
 
-int ft_printf_print_hex(t_format format, int i)
+int	ft_printf_print_hex(t_format format, int i)
 {
 	char	*hex_lower;
 	char	*hex_upper;
@@ -418,6 +411,7 @@ int ft_printf_print_hex(t_format format, int i)
 		return (-1);
 	return (0);
 }
+
 int	ft_printf_print_s2(t_format format, int i)
 {
 	if (!(i == 0 && format.flags & 1 << 6 && format.precision == 0))
@@ -454,7 +448,7 @@ int	ft_printf_print_s3(t_format format, char *pres, int i)
 int	ft_printf_print_s1(t_format format, char *pres, int i)
 {
 	if (ft_printf_print_s3(format, pres, i) == -1)
-			return (-1);
+		return (-1);
 	if (ft_printf_print_s2(format, i) == -1)
 		return (-1);
 	return (0);
@@ -476,7 +470,8 @@ int	ft_printf_get_pres(t_format format, int i, char **pres)
 		if (*pres)
 			print++;
 	}
-	else if ((format.specifier == 'x' || format.specifier == 'X') && i != 0 && format.flags & 1 << 5)
+	else if ((format.specifier == 'x' || format.specifier == 'X')
+		&& i != 0 && format.flags & 1 << 5)
 	{
 		if (format.specifier == 'x')
 			*pres = "0x";
@@ -487,14 +482,12 @@ int	ft_printf_get_pres(t_format format, int i, char **pres)
 	return (print);
 }
 
-int	ft_printf_print_format_hyphen(t_format format, int i, char *pres, int precision, int *print)
+int	ft_printf_print_format_hyphen(t_format format, int i,
+									int precision, int *print)
 {
 	int	padding;
 
-	padding = 0;
 	padding = ft_printf_get_padding(format.hyphen_nmb, *print);
-	if (ft_printf_print_s3(format, pres, i) == -1)
-		return (-1);
 	if (ft_printf_print_paddings(precision, '0') == -1)
 		return (-1);
 	if (ft_printf_print_s2(format, i) == -1)
@@ -505,25 +498,15 @@ int	ft_printf_print_format_hyphen(t_format format, int i, char *pres, int precis
 	return (0);
 }
 
-int	ft_printf_print_format_precision(t_format format, int *print, int i, int precision, char *pres)
+int	ft_printf_print_format_prcs(t_format format, int i,
+								int precision, char *pres)
 {
-	int	padding;
-
-	if (ft_pirntf_padding_s1(format, print) == -1)
-		return (-1);
 	if (ft_printf_print_s3(format, pres, i) == -1)
-			return (-1);
+		return (-1);
 	if (ft_printf_print_paddings(precision, '0') == -1)
 		return (-1);
 	if (ft_printf_print_s2(format, i) == -1)
 		return (-1);
-	if (format.flags & 1 << 2 && format.hyphen_nmb == 0 && format.zero_nmb > *print)
-	{
-		padding = ft_printf_get_padding(format.zero_nmb, *print);
-		*print += padding;
-		if (ft_printf_print_paddings(padding, ' ') == -1)
-			return (-1);
-	}
 	return (0);
 }
 
@@ -536,7 +519,7 @@ int	ft_printf_print_format_zero(t_format format, int *print, int i, char *pres)
 	if (ft_printf_print_s3(format, pres, i) == -1)
 		return (-1);
 	if (ft_printf_print_paddings(padding, '0') == -1)
-			return (-1);
+		return (-1);
 	if (ft_printf_print_s2(format, i) == -1)
 		return (-1);
 	return (0);
@@ -551,8 +534,31 @@ int	ft_printf_print_format_nmb(t_format format, int *print, int i, char *pres)
 	if (ft_printf_print_paddings(padding, ' ') == -1)
 		return (-1);
 	if (ft_printf_print_s1(format, pres, i) == -1)
-			return (-1);
+		return (-1);
 	return (0);
+}
+
+int	ft_printf_get_print_pres(t_format format, int i,
+								int *precision, char **pres)
+{
+	int	print;
+
+	print = ft_printf_get_print(format, i, precision);
+	return (print + ft_printf_get_pres(format, i, pres));
+}
+
+int	ft_printf_print_format_helper(t_format format, int *print,
+									int i, char *pres)
+{
+	int	tmp;
+
+	if (format.flags & 1)
+		tmp = ft_printf_print_format_zero(format, print, i, pres);
+	else if (format.nmb > *print && format.nmb > *print)
+		tmp = ft_printf_print_format_nmb(format, print, i, pres);
+	else
+		tmp = ft_printf_print_s1(format, pres, i);
+	return (tmp);
 }
 
 int	ft_printf_pirnt_format(int i, t_format format)
@@ -563,20 +569,22 @@ int	ft_printf_pirnt_format(int i, t_format format)
 	int		tmp;
 
 	precision = 0;
-	tmp = 0;
 	pres = NULL;
-	print = ft_printf_get_print(format, i, &precision);
-	print += ft_printf_get_pres(format, i, &pres);
+	print = ft_printf_get_print_pres(format, i, &precision, &pres);
 	if ((format.flags & 1 << 2))
-		tmp = ft_printf_print_format_hyphen(format, i, pres, precision, &print);
+	{
+		if (ft_printf_print_s3(format, pres, i) == -1)
+			return (-1);
+		tmp = ft_printf_print_format_hyphen(format, i, precision, &print);
+	}
 	else if (format.flags & 1 << 6)
-		tmp = ft_printf_print_format_precision(format, &print, i, precision, pres);
-	else if (format.flags & 1)
-		tmp = ft_printf_print_format_zero(format, &print, i, pres);
-	else if (format.nmb > print && format.nmb > print)
-		tmp = ft_printf_print_format_nmb(format, &print, i, pres);
+	{
+		if (ft_pirntf_padding_s1(format, &print) == -1)
+			return (-1);
+		tmp = ft_printf_print_format_prcs(format, i, precision, pres);
+	}
 	else
-		tmp = ft_printf_print_s1(format, pres, i);
+		tmp = ft_printf_print_format_helper(format, &print, i, pres);
 	if (tmp == -1)
 		return (-1);
 	return (print);
@@ -584,11 +592,10 @@ int	ft_printf_pirnt_format(int i, t_format format)
 
 int	ft_printf_int(va_list args, t_format format)
 {
-	int				i;
+	int	i;
 
-	i = va_arg(args, int);	
+	i = va_arg(args, int);
 	return (ft_printf_pirnt_format(i, format));
-
 }
 
 int	ft_printf_int_in_hex(va_list args, t_format format)

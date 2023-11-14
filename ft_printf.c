@@ -12,22 +12,14 @@
 
 #include "ft_printf.h"
 
-
-int	ft_atoi_2(const char *str)
+int	ft_atoi_strict(const char *str)
 {
-	int		sign;
 	int		nb;
 
-	sign = 1;
 	nb = 0;
-	//while (ft_isspace(*str))
-	//	str++;
-	// if (*str == '-' || *str == '+')
-	// 	if (*str++ == '-')
-	// 		sign = -1;
 	while (*str >= '0' && *str <= '9')
 		nb = nb * 10 + (*str++ - '0');
-	return (nb * sign);
+	return (nb);
 }
 
 int	ft_printf_formating(va_list args, t_format format)
@@ -51,22 +43,6 @@ int	ft_printf_formating(va_list args, t_format format)
 		tmp = ft_printf_print_chars_formats(args, format);
 	return (tmp);
 }
-
-// char	*ft_strchr(const char *s, int c)
-// {
-// 	char	*ptr;
-
-// 	ptr = (char *)s;
-// 	while (*ptr)
-// 	{
-// 		if (*ptr == (unsigned char)c)
-// 			return (ptr);
-// 		ptr++;
-// 	}
-// 	if (*ptr == (unsigned char)c)
-// 		return (ptr);
-// 	return (NULL);
-// }
 
 char	*ft_get_format(const char *str)
 {
@@ -127,8 +103,8 @@ void	ft_get_zero_flag_nmb_helper(char *tmp, t_format *format)
 	int	skp;
 
 	skp = ft_to_skip(tmp);
-	if (ft_isdigit(*(tmp + skp))) // && *(tmp + skp) != 48 // why kont drt hadi
-		format->zero_nmb = ft_atoi_2(tmp + skp);
+	if (ft_isdigit(*(tmp + skp)))
+		format->zero_nmb = ft_atoi_strict(tmp + skp);
 	else if (format->zero_nmb == 0)
 		format->zero_nmb = format->nmb;
 	tmp += skp;
@@ -137,7 +113,7 @@ void	ft_get_zero_flag_nmb_helper(char *tmp, t_format *format)
 	while (skp > 0)
 	{
 		if (ft_isdigit(*(tmp + skp)) && *(tmp + skp) != 48)
-			format->zero_nmb = ft_atoi_2(tmp + skp);
+			format->zero_nmb = ft_atoi_strict(tmp + skp);
 		tmp += skp;
 		tmp += ft_to_skip_digit(tmp);
 		skp = ft_to_skip(tmp);
@@ -160,7 +136,7 @@ void	ft_get_zero_flag_nmb(char *formats, t_format *format)
 	}
 	else if (ft_isdigit(*(formats + skp)))
 	{
-		format->nmb = ft_atoi_2(formats + skp);
+		format->nmb = ft_atoi_strict(formats + skp);
 		if (format->nmb != 0)
 		{
 			format->hyphen_nmb = format->nmb;
@@ -176,24 +152,19 @@ void	ft_format_hyphen(t_format *format, char *tmp)
 
 	nmb = 0;
 	format->flags = format->flags | 1 << 2;
-	nmb = ft_atoi_2(tmp);
+	nmb = ft_atoi_strict(tmp);
 	if (nmb > 0)
-		format->hyphen_nmb = nmb;	
+		format->hyphen_nmb = nmb;
 	tmp += ft_to_skip_digit(tmp);
 	skp = ft_to_skip(tmp);
 	while (skp > 0)
 	{
 		if (ft_isdigit(*(tmp + skp)) && *(tmp + skp) != 48)
-			format->hyphen_nmb = ft_atoi_2(tmp + skp);
+			format->hyphen_nmb = ft_atoi_strict(tmp + skp);
 		tmp += skp;
 		tmp += ft_to_skip_digit(tmp);
 		skp = ft_to_skip(tmp);
 	}
-	// if (format->hyphen_nmb == 0)
-	// {
-	// 	format->hyphen_nmb
-	// 	if ()
-	// }
 }
 
 void	ft_format_initialization(t_format *format, char *formats)
@@ -207,43 +178,39 @@ void	ft_format_initialization(t_format *format, char *formats)
 	format->zero_nmb = 0;
 }
 
+void	ft_format_iter_re(t_format *format, char *formats)
+{
+	int	i;
+
+	ft_get_zero_flag_nmb (formats, format);
+	i = ft_atoi_strict (formats + 1);
+	if (i != 0)
+		format->hyphen_nmb = i;
+}
+
 void	ft_format_iter(char c, t_format *format, char *formats)
 {
-	//int	skp;
-
 	if (c == '-')
 		ft_format_hyphen(format, formats + 1);
 	else if (c == '+')
 	{
 		format->flags = format->flags | 1 << 3;
-		ft_get_zero_flag_nmb(formats, format);
-		int i = ft_atoi_2(formats+1);
-		if (i != 0)
-			format->hyphen_nmb = i;
+		ft_format_iter_re(format, formats);
 	}
 	else if (c == ' ')
 	{
 		format->flags = format->flags | 1 << 4;
-		ft_get_zero_flag_nmb(formats, format);
-		int i = ft_atoi_2(formats+1);
-		if (i != 0)
-			format->hyphen_nmb = i;
-		
+		ft_format_iter_re(format, formats);
 	}
 	else if (c == '#')
 	{
 		format->flags = format->flags | 1 << 5;
-		ft_get_zero_flag_nmb (formats, format);
-		int i = ft_atoi_2(formats+1);
-		if (i != 0)
-			format->hyphen_nmb = i;
+		ft_format_iter_re(format, formats);
 	}
 	else if (c == '.')
 	{
 		format->flags = format->flags | 1 << 6;
-		//skp = ft_to_skip(formats + 1);
-		format->precision = ft_atoi_2(formats+1);
-		//printf("\n%i=============\n", format->precision);
+		format->precision = ft_atoi_strict (formats + 1);
 	}
 }
 
@@ -320,7 +287,7 @@ int	ft_printf_iter(va_list args, const char *str)
 		if (*str == '%')
 		{
 			str++;
-			tmp = ft_printf_format(&str, &format, args);// mand5lch printed hna
+			tmp = ft_printf_format(&str, &format, args);
 			if (tmp == -1)
 				return (-1);
 			printed += tmp;
