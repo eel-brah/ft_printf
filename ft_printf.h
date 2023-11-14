@@ -6,12 +6,12 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 19:32:31 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/14 14:32:08 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:18:41 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#ifndef FTPRINTF_H
+# define FTPRINTF_H
 
 # include "libft/libft.h"
 # include <unistd.h>
@@ -49,39 +49,47 @@ int			ft_putnbr_r(unsigned int nb, int fd);
 int			ft_putnbr_fd_r(int n, char c, int fd);
 int			ft_putstr_fd_r(char *str, int fd, int len);
 int			ft_printf_print_putchars(char x, int print, char *str, char c);
-int			ft_printf_print_char_hyphen(t_format format, int *print, char *str, char c);
-int			ft_printf_print_char_zero(t_format format, int *print, char *str, char c);
-int			ft_printf_print_char_nmb(t_format format, int *print, char *str, char c);
+int			ft_printf_print_char_hyphen(t_format format,
+				int *print, char *str, char c);
+int			ft_printf_print_char_zero(t_format format,
+				int *print, char *str, char c);
+int			ft_printf_print_char_nmb(t_format format,
+				int *print, char *str, char c);
 int			ft_printf_print_chars_helper(t_format format,
-											va_list args, char **str, char *c);
+				va_list args, char **str, char *c);
 int			ft_printf_pirnt_ints_format(int i, t_format format);
 int			ft_printf_print_format_hyphen(t_format format, int i,
-											int precision, int *print);
+				int precision, int *print);
 int			ft_printf_print_format_prcs(t_format format, int i,
-											int precision, char *pres);
-int			ft_printf_print_format_zero(t_format format, int *print, int i, char *pres);
-int			ft_printf_print_format_nmb(t_format format, int *print, int i, char *pres);
+				int precision, char *pres);
+int			ft_printf_print_format_zero(t_format format,
+				int *print, int i, char *pres);
+int			ft_printf_print_format_nmb(t_format format,
+				int *print, int i, char *pres);
 int			ft_printf_get_pres(t_format format, int i, char **pres);
 int			ft_int_len(int n, char c);
 int			ft_printf_print_format_helper(t_format format, int *print,
-											int i, char *pres);
+				int i, char *pres);
 int			ft_printf_get_print_pres(t_format format, int i,
-											int *precision, char **pres);
+				int *precision, char **pres);
 int			ft_printf_print_hex(t_format format, int i);
 int			ft_printf_print_s2(t_format format, int i);
 int			ft_printf_print_s3(t_format format, char *pres, int i);
 int			ft_printf_print_s1(t_format format, char *pres, int i);
 int			ft_printf_adrs_print_non(t_format format, unsigned long p);
-int			ft_printf_adrs_print_nmb(t_format format, unsigned long p, int *print);
-int			ft_printf_adrs_print_zero(t_format format, unsigned long p, int *print);
+int			ft_printf_adrs_print_nmb(t_format format,
+				unsigned long p, int *print);
+int			ft_printf_adrs_print_zero(t_format format,
+				unsigned long p, int *print);
 int			ft_printf_adrs_print_precision(t_format format,
-											unsigned long p, int *print, int precision);
+				unsigned long p, int *print, int precision);
 int			ft_printf_adrs_print_hyphen(t_format format,
-											unsigned long p, int *print, int precision);
+				unsigned long p, int *print, int precision);
 int			ft_printf_get_padding(int nmb, int print);
 int			ft_printf_print_paddings(int pad, char c);
 int			ft_hex_len(unsigned long p);
-int			ft_printf_get_print(t_format format, unsigned long i, int *precision);
+int			ft_printf_get_print(t_format format,
+				unsigned long i, int *precision);
 int			ft_pirntf_padding_s1(t_format format, int *print);
 int			ft_printf_print_chars_formats(va_list args, t_format format);
 int			ft_printf_print_adrs_format(va_list args, t_format format);

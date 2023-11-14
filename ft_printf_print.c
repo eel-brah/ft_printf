@@ -6,7 +6,7 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:51:14 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/14 14:28:24 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:52:59 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ int	ft_printf_print_chars_formats(va_list args, t_format format)
 
 int	ft_printf_print_adrs_format(va_list args, t_format format)
 {
-    unsigned long	p;
-	int             precision;
-	int	            print;
-	int             tmp;
+	unsigned long	p;
+	int				precision;
+	int				print;
+	int				tmp;
 
-    p = (unsigned long)va_arg(args, void *);
+	p = (unsigned long)va_arg(args, void *);
 	precision = 0;
 	print = ft_printf_get_print(format, p, &precision);
 	if ((format.flags & 1 << 2
