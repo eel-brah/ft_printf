@@ -6,12 +6,12 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 19:32:31 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/14 15:18:41 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:29:27 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FTPRINTF_H
-# define FTPRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
 # include "libft/libft.h"
 # include <unistd.h>
