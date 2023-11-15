@@ -27,7 +27,7 @@ $(NAME): $(LIBFT) $(OBJ_FILES)
 $(LIBFT): $(LIBFTDIR)
 	$(MAKE) -C $(LIBFTDIR)
 
-$(SRC_DIRS)%.o: $(SRC_DIRS)%.c $(INCLUDE)
+$(SRC_DIRS)/%.o: $(SRC_DIRS)/%.c $(INCLUDE)
 	$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
 bonus: all

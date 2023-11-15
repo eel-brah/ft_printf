@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "__locale": "c",
-        "ios": "c",
-        "chrono": "c",
-        "stdint.h": "c",
-        "stdio.h": "c"
-    }
-}
