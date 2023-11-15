@@ -18,19 +18,19 @@ OBJ_FILES := $(SRC_FILES:.c=.o)
 
 NAME := libftprintf.a
 
-bonus: all
-
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ_FILES)
 	cp $(LIBFT) $(NAME)
-	$(AR) $(ARFLAGS) $@ $?
+	$(AR) $(ARFLAGS) $@ $^
 
 $(LIBFT): $(LIBFTDIR)
-	$(MAKE) -C $(LIBFTDIR) 
+	$(MAKE) -C $(LIBFTDIR)
 
 $(SRC_DIRS)%.o: $(SRC_DIRS)%.c $(INCLUDE)
 	$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
+
+bonus: all
 
 clean:
 	$(MAKE) clean -C $(LIBFTDIR) 
@@ -42,4 +42,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
