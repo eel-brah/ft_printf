@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_format_generator.c                       :+:      :+:    :+:   */
+/*   ft_printf_format_generator_bonus.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:40:43 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/14 14:53:22 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/16 22:12:45 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,13 @@ int	ft_printf_format(const char **str, t_format *format, va_list args)
 	if (formats == (void *)-1)
 		return (-1);
 	else if (!formats)
+	{
+		*str = ft_format_skep((char *)*str);
 		return (0);
+	}
 	*format = ft_format_genarator(formats);
+	if (ft_format_check(*format) == -1)
+		return (-1);
 	printed = ft_printf_formating(args, *format);
 	*str += ft_strlen(formats) - 1;
 	free(formats);

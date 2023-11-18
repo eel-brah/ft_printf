@@ -6,7 +6,7 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 19:32:31 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/14 15:29:27 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/17 21:21:18 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ typedef struct s_format
 	char	specifier; 
 }	t_format;
 
+char		*ft_format_skep(char *str);
 int			ft_atoi_strict(const char *str);
 int			ft_printf_formating(va_list args, t_format format);
 char		*ft_get_format(const char *str);
 int			ft_to_skip(char *formats);
+int			ft_format_check(t_format format);
 int			ft_to_skip_digit(char *formats);
 void		ft_get_zero_flag_nmb_helper(char *tmp, t_format *format);
 void		ft_get_zero_flag_nmb(char *formats, t_format *format);

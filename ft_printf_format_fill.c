@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_format_fill.c                            :+:      :+:    :+:   */
+/*   ft_printf_format_fill_bonus.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:43:15 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/14 14:53:29 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:22:09 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	ft_format_hyphen(t_format *format, char *tmp)
 	nmb = 0;
 	format->flags = format->flags | 1 << 2;
 	nmb = ft_atoi_strict(tmp);
-	if (nmb > 0)
+	if (nmb > 0 || nmb == -1)
 		format->hyphen_nmb = nmb;
 	tmp += ft_to_skip_digit(tmp);
 	skp = ft_to_skip(tmp);

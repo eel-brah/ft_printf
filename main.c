@@ -699,7 +699,7 @@ printf("%i\n", ++r);
 printf("%i\n", ++r);
 	tmp1 = printf("% +###########dte\n",-10);
 	tmp = ft_printf("% +###########dte\n",-10);
-	printf("tmp : %d , tmp1 : %d\n",tmp,tmp1);
+	printf("tmp : %h , tmp1 : %d\n",tmp,tmp1);
 printf("\n");
 		printf("%Test: %i Return: %i\n", test, ft_printf("%5p, %5p, %5p, %5p, %5p, %5p", (void *)0, (void *)0xABCDE, (void *)ULONG_MAX, (void *)LONG_MIN, (void *)-1, (void *)-2352));
 	printf("%Test: %i Return: %i\n", test, printf("%5p, %5p, %5p, %5p, %5p, %5p", (void *)0, (void *)0xABCDE, (void *)ULONG_MAX, (void *)LONG_MIN, (void *)-1, (void *)-2352));printf("\n");
@@ -730,9 +730,21 @@ printf("\n");
 	printf("%Test: %i Return: %i\n",5 , printf("%0 0+9i", 99));printf("\n");printf("\n");
 		printf("%Test: %i Return: %i\n", 5, ft_printf("%0 00+9i", 99));
 	printf("%Test: %i Return: %i\n",5 , printf("%0 00+9i", 99));printf("\n");
-	printf("%Test: %i Return: %i\n", 5, ft_printf("%010.5-i", 99));
-	printf("%Test: %i Return: %i\n",5 , printf("%010.5-i", 99));printf("\n");
+
 	printf("%Test: %i Return: %i\n", 5, ft_printf("%-.99i", &c));
 	printf("%Test: %i Return: %i\n",5 , printf("%-.99i", &c));printf("\n");
+
+	printf("%Test: %i Return: %i\n", 5, ft_printf("%-.99i", &c));
+	printf("%Test: %i Return: %i\n",5 , printf("%-.99i", &c));printf("\n");
+
+	printf("%Test: %i Return: %i\n", 5, ft_printf("%02147483649i", 99));
+	printf("%Test: %i Return: %i\n",5 , printf("%02147483649i", 99));printf("\n");
+	printf("%Test: %i Return: %i\n", 5, ft_printf("%-2147483647i", 99));
+	printf("%Test: %i Return: %i\n",5 , printf("%-2147483647i", 99));printf("\n");
+	printf("%Test: %i Return: %i\n", 5, ft_printf("%02147483647-99i", 99));
+	printf("%Test: %i Return: %i\n",5 , printf("%02147483647-99i", 99));printf("\n");
+	printf("%Test: %i Return: %i\n", 5, ft_printf("%-99+2147483647i", 99));
+	printf("%Test: %i Return: %i\n",5 , printf("%-99+2147483647i", 99));printf("\n");
+
 }
 //cspdiuxX%

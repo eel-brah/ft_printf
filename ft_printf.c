@@ -12,16 +12,6 @@
 
 #include "ft_printf.h"
 
-int	ft_atoi_strict(const char *str)
-{
-	int		nb;
-
-	nb = 0;
-	while (*str >= '0' && *str <= '9')
-		nb = nb * 10 + (*str++ - '0');
-	return (nb);
-}
-
 int	ft_printf_formating(va_list args, t_format format)
 {
 	int	tmp;

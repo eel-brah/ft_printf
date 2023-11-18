@@ -6,11 +6,49 @@
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:51:14 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/14 14:52:59 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/18 12:53:24 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	ft_atoi_strict(const char *str)
+{
+	int		nb;
+	int		nbr;
+
+	nb = 0;
+	while (*str >= '0' && *str <= '9')
+	{
+		nbr = nb * 10 + (*str++ - '0');
+		if (nb > nbr || nbr == 2147483647)
+			return (-1);
+		nb = nbr;
+	}
+	return (nb);
+}
+
+int	ft_format_check(t_format format)
+{
+	if (format.flags & 1 << 6)
+	{
+		if (format.precision == -1)
+			return (-1);
+	}
+	else if (format.flags & 1 << 2)
+	{
+		if (format.hyphen_nmb == -1)
+			return (-1);
+	}
+	else if (format.flags & 1)
+	{
+		if (format.zero_nmb == -1)
+			return (-1);
+	}
+	else if (format.nmb == -1)
+		return (-1);
+	return (0);
+}
 
 int	ft_printf_print_chars_formats(va_list args, t_format format)
 {

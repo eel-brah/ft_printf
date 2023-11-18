@@ -1,16 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_print_format_ints_format_helpers_        :+:      :+:    :+:   */
+/*   ft_printf_print_ints_format_helpers_2.c            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eel-brah <eel-brah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:15:27 by eel-brah          #+#    #+#             */
-/*   Updated: 2023/11/14 14:15:45 by eel-brah         ###   ########.fr       */
+/*   Updated: 2023/11/18 12:54:21 by eel-brah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+char	*ft_format_skep(char *str)
+{
+	char	*ptr;
+	char	*flags;
+	int		i;
+
+	i = 0;
+	flags = "-0.# +123456789";
+	ptr = flags;
+	while (*(str + i) && ptr)
+		ptr = ft_strchr(flags, *(str + i++));
+	return (str + i);
+}
 
 int	ft_printf_print_hex(t_format format, int i)
 {
